@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>لعبة جمع العملات</title>
+
+<style>
+
+body{
+margin:0;
+background:#111;
+overflow:hidden;
+font-family:Arial;
+color:white;
+text-align:center;
+}
+
+h1{
+margin-top:15px;
+}
+
+#score{
+font-size:28px;
+margin:10px;
+}
+
+#player{
+width:80px;
+height:80px;
+background:#00cc66;
+position:absolute;
+bottom:20px;
+left:150px;
+border-radius:20px;
+}
+
+.coin{
+width:50px;
+height:50px;
+background:gold;
+border-radius:50%;
+position:absolute;
+top:-60px;
+}
+
+.enemy{
+width:60px;
+height:60px;
+background:red;
+position:absolute;
+top:-60px;
+border-radius:15px;
+}
+
+button{
+padding:15px 40px;
+border:none;
+border-radius:10px;
+background:#00aa66;
+color:white;
+font-size:22px;
+margin-top:15px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>
+🎮 لعبة جمع العملات
+</h1>
+
+<div id="score">
+النقاط: 0
+</div>
+
+<button onclick="startGame()">
+ابدأ اللعبة
+</button>
+
+<div id="player"></div>
+
+<script>
+
+let player = document.getElementById("player");
+
+let score = 0;
+
+let gameStarted = false;
+
+let playerX = 150;
+
+document.addEventListener("touchmove", movePlayer);
+
+function movePlayer(e){
+
+playerX = e.touches[0].clientX - 40;
+
+player.style.left = playerX + "px";
+
+}
+
+function startGame(){
+
+if(gameStarted) return;
+
+gameStarted = true;
+
+setInterval(createCoin,1000);
+
+setInterval(createEnemy,2000);
+
+}
+
+function createCoin(){
+
+let coin = document.createElement("div");
+
+coin.classList.add("coin");
+
+coin.style.left =
+Math.random() * (window.innerWidth - 60) + "px";
+
+document.body.appendChild(coin);
+
+let topPos = -60;
+
+let move = setInterval(() => {
+
+topPos += 5;
+
+coin.style.top = topPos + "px";
+
+let coinRect = coin.getBoundingClientRect();
+
+let playerRect = player.getBoundingClientRect();
+
+if(
+
+coinRect.left < playerRect.right &&
+coinRect.right > playerRect.left &&
+coinRect.top < playerRect.bottom &&
+coinRect.bottom > playerRect.top
+
+){
+
+score += 10;
+
+document.getElementById("score").innerText =
+"النقاط: " + score;
+
+coin.remove();
+
+clearInterval(move);
+
+}
+
+if(topPos > window.innerHeight){
+
+coin.remove();
+
+clearInterval(move);
+
+}
+
+},30);
+
+}
+
+function createEnemy(){
+
+let enemy = document.createElement("div");
+
+enemy.classList.add("enemy");
+
+enemy.style.left =
+Math.random() * (window.innerWidth - 60) + "px";
+
+document.body.appendChild(enemy);
+
+let topPos = -60;
+
+let move = setInterval(() => {
+
+topPos += 6;
+
+enemy.style.top = topPos + "px";
+
+let enemyRect = enemy.getBoundingClientRect();
+
+let playerRect = player.getBoundingClientRect();
+
+if(
+
+enemyRect.left < playerRect.right &&
+enemyRect.right > playerRect.left &&
+enemyRect.top < playerRect.bottom &&
+enemyRect.bottom > playerRect.top
+
+){
+
+alert("💀 خسرت! مجموع نقاطك: " + score);
+
+location.reload();
+
+}
+
+if(topPos > window.innerHeight){
+
+enemy.remove();
+
+clearInterval(move);
+
+}
+
+},30);
+
+}
+
+</script>
+
+</body>
+</html>
