@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Mini PUBG</title>
 
 <style>
@@ -16,20 +15,31 @@ background:#222;
 
 canvas{
 display:block;
-background:#4c7a34;
-touch-action:none;
+background:#567d46;
 }
 
-#info{
+#score{
 position:absolute;
 top:10px;
 left:10px;
 color:white;
-font-size:22px;
-background:rgba(0,0,0,0.5);
+font-size:24px;
+background:black;
 padding:10px;
 border-radius:10px;
-z-index:10;
+}
+
+#shoot{
+position:absolute;
+bottom:40px;
+right:30px;
+width:80px;
+height:80px;
+border-radius:50%;
+background:red;
+color:white;
+font-size:25px;
+border:none;
 }
 
 </style>
@@ -37,9 +47,13 @@ z-index:10;
 
 <body>
 
-<div id="info">
-النقاط: <span id="score">0</span>
+<div id="score">
+النقاط: 0
 </div>
+
+<button id="shoot">
+🔥
+</button>
 
 <canvas id="game"></canvas>
 
@@ -48,32 +62,31 @@ z-index:10;
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width = innerWidth;
+canvas.height = innerHeight;
 
-let keys = {};
-let bullets = [];
-let enemies = [];
 let score = 0;
 
 const player = {
-x: canvas.width/2,
-y: canvas.height/2,
-size: 40,
-speed: 5,
-color: "#00bfff"
+x:200,
+y:400,
+size:40,
+speed:5
 };
 
-function drawMap(){
+let bullets = [];
+let enemies = [];
 
-ctx.fillStyle = "#4c7a34";
+function map(){
+
+ctx.fillStyle="#567d46";
 ctx.fillRect(0,0,canvas.width,canvas.height);
 
-for(let i=0;i<30;i++){
+for(let i=0;i<canvas.width;i+=100){
 
-ctx.fillStyle = "#3d5f2d";
+ctx.fillStyle="#4b6b3f";
 
-ctx.fillRect(i*80,0,40,canvas.height);
+ctx.fillRect(i,0,50,canvas.height);
 
 }
 
@@ -81,40 +94,17 @@ ctx.fillRect(i*80,0,40,canvas.height);
 
 function drawPlayer(){
 
-ctx.fillStyle = player.color;
+ctx.fillStyle="#00bfff";
 
-ctx.fillRect(player.x,player.y,player.size,player.size);
+ctx.beginPath();
 
-ctx.fillStyle = "black";
+ctx.arc(player.x,player.y,25,0,Math.PI*2);
 
-ctx.fillRect(player.x+10,player.y-8,20,10);
+ctx.fill();
 
-}
+ctx.fillStyle="black";
 
-function movePlayer(){
-
-if(keys["w"]) player.y -= player.speed;
-if(keys["s"]) player.y += player.speed;
-if(keys["a"]) player.x -= player.speed;
-if(keys["d"]) player.x += player.speed;
-
-if(player.x < 0) player.x = 0;
-if(player.y < 0) player.y = 0;
-
-if(player.x > canvas.width-player.size)
-player.x = canvas.width-player.size;
-
-if(player.y > canvas.height-player.size)
-player.y = canvas.height-player.size;
-
-}
-
-function shoot(){
-
-bullets.push({
-x: player.x + 18,
-y: player.y
-});
+ctx.fillRect(player.x-5,player.y-35,10,25);
 
 }
 
@@ -122,59 +112,65 @@ function drawBullets(){
 
 bullets.forEach((b,index)=>{
 
-ctx.fillStyle = "yellow";
+ctx.fillStyle="yellow";
 
-ctx.fillRect(b.x,b.y,5,15);
+ctx.fillRect(b.x,b.y,6,18);
 
 b.y -= 10;
 
 if(b.y < 0){
+
 bullets.splice(index,1);
+
 }
 
 });
 
 }
 
-function spawnEnemies(){
-
-setInterval(()=>{
+function createEnemy(){
 
 enemies.push({
 
-x: Math.random() * (canvas.width-40),
-y: -50,
-size:40,
-speed:2 + Math.random()*2
+x:Math.random()*canvas.width,
+y:-50,
+size:35,
+speed:2+Math.random()*2
 
 });
 
-},1000);
-
 }
+
+setInterval(createEnemy,1200);
 
 function drawEnemies(){
 
 enemies.forEach((e,eIndex)=>{
 
-ctx.fillStyle = "red";
+ctx.fillStyle="red";
 
-ctx.fillRect(e.x,e.y,e.size,e.size);
+ctx.beginPath();
 
-ctx.fillStyle = "black";
+ctx.arc(e.x,e.y,25,0,Math.PI*2);
 
-ctx.fillRect(e.x+10,e.y-8,20,10);
+ctx.fill();
+
+ctx.fillStyle="black";
+
+ctx.fillRect(e.x-5,e.y-35,10,25);
 
 e.y += e.speed;
 
 if(
-e.x < player.x + player.size &&
-e.x + e.size > player.x &&
-e.y < player.y + player.size &&
-e.y + e.size > player.y
+
+e.x < player.x+25 &&
+e.x+25 > player.x-25 &&
+e.y < player.y+25 &&
+e.y+25 > player.y-25
+
 ){
 
-alert("انتهت اللعبة! نقاطك: " + score);
+alert("انتهت اللعبة");
 
 location.reload();
 
@@ -184,16 +180,17 @@ bullets.forEach((b,bIndex)=>{
 
 if(
 
-b.x < e.x + e.size &&
-b.x + 5 > e.x &&
-b.y < e.y + e.size &&
-b.y + 15 > e.y
+b.x < e.x+25 &&
+b.x+6 > e.x-25 &&
+b.y < e.y+25 &&
+b.y+18 > e.y-25
 
 ){
 
 score++;
 
-document.getElementById("score").innerHTML = score;
+document.getElementById("score").innerHTML =
+"النقاط: " + score;
 
 enemies.splice(eIndex,1);
 
@@ -207,13 +204,11 @@ bullets.splice(bIndex,1);
 
 }
 
-function gameLoop(){
+function game(){
 
 ctx.clearRect(0,0,canvas.width,canvas.height);
 
-drawMap();
-
-movePlayer();
+map();
 
 drawPlayer();
 
@@ -221,36 +216,29 @@ drawBullets();
 
 drawEnemies();
 
-requestAnimationFrame(gameLoop);
+requestAnimationFrame(game);
 
 }
 
-window.addEventListener("keydown",(e)=>{
+game();
 
-keys[e.key.toLowerCase()] = true;
+document.getElementById("shoot").onclick=()=>{
+
+bullets.push({
+
+x:player.x,
+y:player.y
 
 });
 
-window.addEventListener("keyup",(e)=>{
-
-keys[e.key.toLowerCase()] = false;
-
-});
-
-window.addEventListener("click",shoot);
-
-window.addEventListener("touchstart",shoot);
+};
 
 window.addEventListener("touchmove",(e)=>{
 
-player.x = e.touches[0].clientX - 20;
-player.y = e.touches[0].clientY - 20;
+player.x = e.touches[0].clientX;
+player.y = e.touches[0].clientY;
 
 });
-
-spawnEnemies();
-
-gameLoop();
 
 </script>
 
