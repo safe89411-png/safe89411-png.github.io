@@ -1,42 +1,190 @@
-<div class="menu">
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<a href="index.html">🏠 الرئيسية</a>
-
-<a href="articles.html">📚 المقالات</a>
-
-<a href="news.html">📰 الأخبار</a>
-
-<a href="trade.html">📈 التداول</a>
-
-<a href="goldbot.html">🤖 بوت التداول</a>
-
-<a href="videos.html">🎬 الفيديوهات</a>
-
-<a href="game.html">🎮 اللعبة</a>
-
-<a href="privacy.html">🔒 الخصوصية</a>
-
-</div>
+<title>موقع التقنية والألعاب</title>
 
 <style>
 
-.menu{
-display:flex;
-flex-wrap:wrap;
-gap:10px;
-justify-content:center;
-padding:20px;
-background:#1144cc;
+body{
+margin:0;
+font-family:Arial;
+background:#ececec;
+direction:rtl;
 }
 
-.menu a{
-background:#2255ff;
+header{
+background:#020b33;
 color:white;
-padding:15px 20px;
-border-radius:15px;
+padding:60px 20px;
+text-align:center;
+}
+
+header h1{
+font-size:70px;
+margin:0;
+}
+
+header p{
+font-size:35px;
+margin-top:30px;
+}
+
+.menu{
+background:#2350ff;
+padding:30px;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:25px;
+}
+
+.card{
+width:260px;
+height:130px;
+background:#3f66ff;
+border-radius:30px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:38px;
+color:white;
 text-decoration:none;
-font-size:20px;
 font-weight:bold;
+box-shadow:0 0 20px #00000033;
+}
+
+.section{
+background:white;
+margin:25px;
+padding:40px;
+border-radius:35px;
+box-shadow:0 0 20px #00000022;
+}
+
+.section h2{
+font-size:55px;
+margin-bottom:25px;
+}
+
+.section p{
+font-size:30px;
+line-height:2;
+color:#333;
+}
+
+.btn{
+display:inline-block;
+margin-top:20px;
+background:red;
+color:white;
+padding:20px 40px;
+font-size:30px;
+border-radius:20px;
+text-decoration:none;
 }
 
 </style>
+</head>
+
+<body>
+
+<header>
+
+<h1>
+موقع التقنية والألعاب
+</h1>
+
+<p>
+مقالات - ألعاب - تداول - فيديوهات - أخبار
+</p>
+
+</header>
+
+<div class="menu">
+
+<a class="card" href="articles.html">
+📚 المقالات
+</a>
+
+<a class="card" href="game.html">
+🎮 اللعبة
+</a>
+
+<a class="card" href="goldbot.html">
+🤖 بوت التداول
+</a>
+
+<a class="card" href="trade.html">
+📈 التداول
+</a>
+
+<a class="card" href="videos.html">
+🎬 الفيديوهات
+</a>
+
+<a class="card" href="news.html">
+📰 الأخبار
+</a>
+
+</div>
+
+<div class="section">
+
+<h2>
+🤖 بوت تداول الذهب
+</h2>
+
+<p>
+
+بوت تداول يعرض إشارات BUY و SELL ويعرض الأرباح والخسائر
+بشكل مباشر داخل الموقع.
+
+</p>
+
+<a href="goldbot.html" class="btn">
+فتح البوت
+</a>
+
+</div>
+
+<div class="section">
+
+<h2>
+🎮 لعبة الحرب
+</h2>
+
+<p>
+
+ادخل إلى اللعبة والعب داخل عالم ممتع واربح النقاط.
+
+</p>
+
+<a href="game.html" class="btn">
+ابدأ اللعب
+</a>
+
+</div>
+
+<div class="section">
+
+<h2>
+📚 المقالات
+</h2>
+
+<p>
+
+تعلم التداول والربح من الإنترنت والتقنية الحديثة.
+
+</p>
+
+<a href="articles.html" class="btn">
+قراءة المقالات
+</a>
+
+</div>
+
+</body>
+</html>
