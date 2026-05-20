@@ -7,7 +7,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>بوت تداول الذهب</title>
+<title>بوت الذهب الحقيقي</title>
 
 <style>
 
@@ -16,61 +16,60 @@ margin:0;
 background:#0b1020;
 font-family:Arial;
 color:white;
+direction:rtl;
 text-align:center;
 }
 
 .top{
 background:#111827;
 padding:25px;
-font-size:45px;
+font-size:40px;
 font-weight:bold;
 }
 
 .box{
 background:#1f2937;
-margin:25px;
-padding:30px;
-border-radius:30px;
-box-shadow:0 0 20px #00000055;
+margin:20px;
+padding:25px;
+border-radius:25px;
 }
 
 .price{
 font-size:70px;
 color:gold;
-margin-top:20px;
+font-weight:bold;
 }
 
 .buy{
-color:#00ff99;
-font-size:50px;
+color:#00ff88;
+font-size:45px;
 font-weight:bold;
 }
 
 .sell{
 color:red;
-font-size:50px;
+font-size:45px;
 font-weight:bold;
 }
 
 button{
-background:#00aa55;
+padding:18px 35px;
+font-size:28px;
 border:none;
-padding:20px 50px;
-font-size:35px;
+border-radius:18px;
+margin:10px;
+background:#00aa55;
 color:white;
-border-radius:20px;
-margin-top:25px;
 }
 
 .stats{
-font-size:35px;
+font-size:30px;
 line-height:2;
 }
 
 .status{
-font-size:30px;
-margin-top:20px;
-color:#00ff88;
+font-size:28px;
+margin-top:15px;
 }
 
 </style>
@@ -81,18 +80,24 @@ color:#00ff88;
 
 <div class="top">
 
-🤖 بوت تداول الذهب XAUUSD
+🤖 بوت تداول الذهب الحقيقي
 
 </div>
 
 <div class="box">
 
 <h2>
-السعر الحالي
+سعر الذهب الحقيقي
 </h2>
 
-<div class="price" id="gold">
-2335.10
+<div class="price" id="price">
+0
+</div>
+
+<div class="status">
+
+السعر مباشر من السوق
+
 </div>
 
 </div>
@@ -108,28 +113,26 @@ BUY
 </div>
 
 <button onclick="startBot()">
-
 تشغيل البوت
-
 </button>
 
-<div class="status" id="status">
-البوت متوقف
-</div>
+<button onclick="stopBot()">
+إيقاف البوت
+</button>
 
 </div>
 
 <div class="box stats">
 
 <div>
-💰 الربح:
+💰 الأرباح:
 <span id="profit">
 0
 </span>$
 </div>
 
 <div>
-❌ الخسارة:
+❌ الخسائر:
 <span id="loss">
 0
 </span>$
@@ -143,14 +146,14 @@ BUY
 </div>
 
 <div>
-✅ الصفقات الرابحة:
+✅ الرابحة:
 <span id="wins">
 0
 </span>
 </div>
 
 <div>
-❌ الصفقات الخاسرة:
+❌ الخاسرة:
 <span id="losses">
 0
 </span>
@@ -160,45 +163,49 @@ BUY
 
 <script>
 
-let gold = 2335;
+let running = false;
 
 let profit = 0;
 
 let loss = 0;
 
-let resultValue = 0;
-
 let wins = 0;
 
 let losses = 0;
 
-let running = false;
+let currentPrice = 0;
 
-let botInterval;
+async function getGoldPrice(){
 
-function resetBot(){
+try{
 
-profit = 0;
+let response =
+await fetch(
+"https://api.binance.com/api/v3/ticker/price?symbol=PAXGUSDT"
+);
 
-loss = 0;
+let data =
+await response.json();
 
-resultValue = 0;
+currentPrice =
+parseFloat(data.price);
 
-wins = 0;
+document.getElementById("price").innerHTML =
+currentPrice.toFixed(2);
 
-losses = 0;
+}catch(e){
 
-document.getElementById("profit").innerHTML = "0";
-
-document.getElementById("loss").innerHTML = "0";
-
-document.getElementById("result").innerHTML = "0";
-
-document.getElementById("wins").innerHTML = "0";
-
-document.getElementById("losses").innerHTML = "0";
+console.log(e);
 
 }
+
+}
+
+setInterval(getGoldPrice,2000);
+
+getGoldPrice();
+
+let botInterval;
 
 function startBot(){
 
@@ -206,15 +213,7 @@ if(running) return;
 
 running = true;
 
-document.getElementById("status").innerHTML =
-"✅ البوت يعمل";
-
 botInterval = setInterval(()=>{
-
-gold += (Math.random()*8)-4;
-
-document.getElementById("gold").innerHTML =
-gold.toFixed(2);
 
 let signal =
 Math.random() > 0.5 ? "BUY" : "SELL";
@@ -234,12 +233,13 @@ document.getElementById("signal").className =
 
 }
 
-let trade =
+let result =
 Math.random();
 
-if(trade > 0.5){
+if(result > 0.5){
 
-let p = Math.random()*15;
+let p =
+Math.random()*15;
 
 profit += p;
 
@@ -247,7 +247,8 @@ wins++;
 
 }else{
 
-let l = Math.random()*10;
+let l =
+Math.random()*10;
 
 loss += l;
 
@@ -255,7 +256,8 @@ losses++;
 
 }
 
-resultValue = profit - loss;
+let finalResult =
+profit - loss;
 
 document.getElementById("profit").innerHTML =
 profit.toFixed(2);
@@ -264,7 +266,7 @@ document.getElementById("loss").innerHTML =
 loss.toFixed(2);
 
 document.getElementById("result").innerHTML =
-resultValue.toFixed(2);
+finalResult.toFixed(2);
 
 document.getElementById("wins").innerHTML =
 wins;
@@ -272,30 +274,20 @@ wins;
 document.getElementById("losses").innerHTML =
 losses;
 
-if(resultValue >= 50){
-
-clearInterval(botInterval);
-
-running = false;
-
-document.getElementById("status").innerHTML =
-"🛑 تم الوصول إلى 50$ وسيبدأ من جديد";
-
-setTimeout(()=>{
-
-resetBot();
-
-startBot();
-
 },5000);
 
 }
 
-},3000);
+function stopBot(){
+
+running = false;
+
+clearInterval(botInterval);
 
 }
 
 </script>
 
 </body>
+
 </html>
