@@ -1,19 +1,138 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بوت التداول</title>
+
+<style>
+
+body{
+margin:0;
+background:#0b1020;
+font-family:Arial;
+direction:rtl;
+color:white;
+text-align:center;
+}
+
+.top{
+background:#111827;
+padding:30px;
+font-size:40px;
+font-weight:bold;
+}
+
+.box{
+background:#1f2937;
+margin:20px;
+padding:25px;
+border-radius:25px;
+}
+
+.capital{
+font-size:55px;
+color:#00ff88;
+font-weight:bold;
+}
+
+.result{
+font-size:45px;
+font-weight:bold;
+color:gold;
+}
+
+button{
+padding:18px 35px;
+font-size:28px;
+border:none;
+border-radius:18px;
+margin:10px;
+color:white;
+cursor:pointer;
+}
+
+.start{
+background:#00aa55;
+}
+
+.stop{
+background:red;
+}
+
+.stats{
+font-size:30px;
+line-height:2;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="top">
+🤖 بوت التداول
+</div>
+
+<div class="box">
+
+<h2>رأس المال</h2>
+
+<div class="capital" id="capital">
+750$
+</div>
+
+</div>
+
+<div class="box">
+
+<h2>النتيجة النهائية</h2>
+
+<div class="result" id="finalResult">
+0$
+</div>
+
+</div>
+
+<div class="box">
+
+<button class="start" onclick="startBot()">
+تشغيل البوت
+</button>
+
+<button class="stop" onclick="stopBot()">
+إيقاف البوت
+</button>
+
+</div>
+
+<div class="box stats">
+
+<div>
+💰 الأرباح:
+<span id="profit">0</span>$
+</div>
+
+<div>
+❌ الخسائر:
+<span id="loss">0</span>$
+</div>
+
+<div>
+📊 النتيجة:
+<span id="result">0</span>$
+</div>
+
+</div>
+
 <script>
 
 let capital = 750;
-
 let profit = 0;
-
 let loss = 0;
-
 let result = 0;
-
-let wins = 0;
-
-let losses = 0;
-
 let running = false;
-
 let botInterval;
 
 function startBot(){
@@ -22,64 +141,32 @@ if(running) return;
 
 running = true;
 
-document.getElementById(
-"withdrawStatus"
-).innerHTML =
-
-"🟢 البوت يعمل الآن";
-
 botInterval = setInterval(()=>{
 
-let trade =
-Math.random();
+let trade = Math.random();
 
 if(trade > 0.5){
 
-let p =
-Math.random()*20;
-
+let p = Math.random()*20;
 profit += p;
-
-wins++;
 
 }else{
 
-let l =
-Math.random()*15;
-
+let l = Math.random()*15;
 loss += l;
-
-losses++;
 
 }
 
-result =
-profit - loss;
+result = profit - loss;
 
-document.getElementById(
-"profit"
-).innerHTML =
+document.getElementById("profit").innerHTML =
 profit.toFixed(2);
 
-document.getElementById(
-"loss"
-).innerHTML =
+document.getElementById("loss").innerHTML =
 loss.toFixed(2);
 
-document.getElementById(
-"result"
-).innerHTML =
+document.getElementById("result").innerHTML =
 result.toFixed(2);
-
-document.getElementById(
-"wins"
-).innerHTML =
-wins;
-
-document.getElementById(
-"losses"
-).innerHTML =
-losses;
 
 },3000);
 
@@ -91,121 +178,26 @@ running = false;
 
 clearInterval(botInterval);
 
-let finalCapital =
-capital + result;
+let finalCapital = capital + result;
 
-document.getElementById(
-"capital"
-).innerHTML =
-
+document.getElementById("capital").innerHTML =
 finalCapital.toFixed(2) + "$";
 
 if(result >= 0){
 
-document.getElementById(
-"finalResult"
-).innerHTML =
-
+document.getElementById("finalResult").innerHTML =
 "+" + result.toFixed(2) + "$";
 
 }else{
 
-document.getElementById(
-"finalResult"
-).innerHTML =
-
+document.getElementById("finalResult").innerHTML =
 result.toFixed(2) + "$";
-
-}
-
-document.getElementById(
-"withdrawStatus"
-).innerHTML =
-
-"🔴 تم إيقاف البوت";
-
-}
-
-async function withdraw(){
-
-let address =
-document.getElementById(
-"binanceid"
-).value;
-
-let amount =
-document.getElementById(
-"amount"
-).value;
-
-if(!address || !amount){
-
-alert("املأ جميع الحقول");
-
-return;
-
-}
-
-document.getElementById(
-"withdrawStatus"
-).innerHTML =
-
-"⏳ جاري إرسال السحب الحقيقي...";
-
-try{
-
-let response = await fetch(
-
-"http://127.0.0.1:5000/withdraw",
-
-{
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-
-address:address,
-
-amount:amount
-
-})
-
-}
-
-);
-
-let data =
-await response.json();
-
-document.getElementById(
-"withdrawStatus"
-).innerHTML =
-
-"✅ تم إرسال السحب";
-
-alert(
-
-JSON.stringify(data)
-
-);
-
-}catch(e){
-
-document.getElementById(
-"withdrawStatus"
-).innerHTML =
-
-"❌ فشل الاتصال بالسيرفر";
-
-alert(
-"ERROR: " + e
-);
 
 }
 
 }
 
 </script>
+
+</body>
+</html>
