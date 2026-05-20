@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>بوت التداول</title>
+
+<style>
+
+body{
+background:#0f172a;
+font-family:Arial;
+direction:rtl;
+color:white;
+margin:0;
+}
+
+header{
+background:#111827;
+padding:20px;
+text-align:center;
+font-size:30px;
+font-weight:bold;
+}
+
+.card{
+background:#1e293b;
+padding:20px;
+margin:20px;
+border-radius:20px;
+}
+
+.price{
+font-size:50px;
+text-align:center;
+color:gold;
+}
+
+.buy{
+color:#00ff99;
+font-size:35px;
+text-align:center;
+}
+
+.sell{
+color:#ff4444;
+font-size:35px;
+text-align:center;
+}
+
+.stats{
+font-size:24px;
+line-height:2;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+🤖 بوت MT5
+</header>
+
+<div class="card">
+
+<h2>
+📊 السعر الحالي
+</h2>
+
+<div class="price" id="price">
+0
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>
+📡 الإشارة
+</h2>
+
+<div id="signal" class="buy">
+BUY
+</div>
+
+</div>
+
+<div class="card stats">
+
+<div>
+💰 الربح:
+<span id="profit">0</span>$
+</div>
+
+<div>
+✅ الفوز:
+<span id="wins">0</span>
+</div>
+
+<div>
+❌ الخسارة:
+<span id="losses">0</span>
+</div>
+
+</div>
+
+<script>
+
+async function loadData(){
+
+let res = await fetch("results.json?v="+Date.now());
+
+let data = await res.json();
+
+document.getElementById("price").innerHTML =
+data.price+"$";
+
+document.getElementById("signal").innerHTML =
+data.signal;
+
+document.getElementById("profit").innerHTML =
+data.profit;
+
+document.getElementById("wins").innerHTML =
+data.wins;
+
+document.getElementById("losses").innerHTML =
+data.losses;
+
+if(data.signal=="BUY"){
+
+document.getElementById("signal").className =
+"buy";
+
+}else{
+
+document.getElementById("signal").className =
+"sell";
+
+}
+
+}
+
+loadData();
+
+setInterval(loadData,3000);
+
+</script>
+
+</body>
+</html>
