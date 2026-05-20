@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>بوت الذهب الاحترافي</title>
+
+<style>
+
+body{
+margin:0;
+background:#0b0f19;
+font-family:Arial;
+direction:rtl;
+color:white;
+}
+
+header{
+background:#111827;
+padding:20px;
+text-align:center;
+font-size:32px;
+font-weight:bold;
+}
+
+.container{
+padding:20px;
+}
+
+.card{
+background:#161b22;
+border-radius:20px;
+padding:20px;
+margin-top:20px;
+box-shadow:0 0 20px rgba(0,0,0,0.4);
+}
+
+.price{
+font-size:50px;
+text-align:center;
+color:gold;
+margin-top:20px;
+}
+
+.signal{
+font-size:35px;
+text-align:center;
+margin-top:20px;
+font-weight:bold;
+}
+
+.buy{
+color:#00ff99;
+}
+
+.sell{
+color:#ff4444;
+}
+
+button{
+width:100%;
+padding:20px;
+font-size:28px;
+border:none;
+border-radius:15px;
+margin-top:20px;
+font-weight:bold;
+}
+
+.start{
+background:#00c853;
+color:white;
+}
+
+.stop{
+background:#d50000;
+color:white;
+}
+
+.stats{
+margin-top:20px;
+font-size:24px;
+line-height:2;
+}
+
+.tradebox{
+background:#0f172a;
+padding:15px;
+border-radius:15px;
+margin-top:15px;
+font-size:22px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+🤖 بوت تداول الذهب
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<div class="price" id="price">
+1930$
+</div>
+
+<div class="signal" id="signal">
+في انتظار التشغيل
+</div>
+
+<button class="start" onclick="startBot()">
+▶ تشغيل البوت
+</button>
+
+<button class="stop" onclick="stopBot()">
+⏹ إيقاف البوت
+</button>
+
+<div class="tradebox" id="tradeInfo">
+لا توجد صفقة
+</div>
+
+<div class="stats">
+
+<div>
+💰 الأرباح:
+<span id="profit">0</span>$
+</div>
+
+<div>
+❌ الخسائر:
+<span id="loss">0</span>$
+</div>
+
+<div>
+✅ الصفقات الرابحة:
+<span id="wins">0</span>
+</div>
+
+<div>
+❌ الصفقات الخاسرة:
+<span id="losses">0</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let running = false;
+let interval;
+
+let price = 1930;
+
+let profit = 0;
+let loss = 0;
+
+let wins = 0;
+let losses = 0;
+
+let position = null;
+let entry = 0;
+
+function updatePrice(){
+
+let move = (Math.random()*8-4);
+
+price += move;
+
+document.getElementById("price").innerHTML =
+price.toFixed(2)+"$";
+
+}
+
+function createSignal(){
+
+if(position !== null) return;
+
+let rand = Math.random();
+
+entry = price;
+
+if(rand > 0.5){
+
+position = "BUY";
+
+document.getElementById("signal").innerHTML =
+"🟢 BUY";
+
+document.getElementById("signal").className =
+"signal buy";
+
+document.getElementById("tradeInfo").innerHTML =
+"شراء الذهب من "+entry.toFixed(2);
+
+}else{
+
+position = "SELL";
+
+document.getElementById("signal").innerHTML =
+"🔴 SELL";
+
+document.getElementById("signal").className =
+"signal sell";
+
+document.getElementById("tradeInfo").innerHTML =
+"بيع الذهب من "+entry.toFixed(2);
+
+}
+
+}
+
+function checkTrade(){
+
+if(position==="BUY"){
+
+let floating = price-entry;
+
+if(floating>=3){
+
+profit += floating;
+
+wins++;
+
+position = null;
+
+document.getElementById("tradeInfo").innerHTML =
+"💰 تم تحقيق ربح";
+
+}
+
+else if(floating<=-3){
+
+loss += Math.abs(floating);
+
+losses++;
+
+position = null;
+
+document.getElementById("tradeInfo").innerHTML =
+"❌ خسارة الصفقة";
+
+}
+
+}
+
+if(position==="SELL"){
+
+let floating = entry-price;
+
+if(floating>=3){
+
+profit += floating;
+
+wins++;
+
+position = null;
+
+document.getElementById("tradeInfo").innerHTML =
+"💰 تم تحقيق ربح";
+
+}
+
+else if(floating<=-3){
+
+loss += Math.abs(floating);
+
+losses++;
+
+position = null;
+
+document.getElementById("tradeInfo").innerHTML =
+"❌ خسارة الصفقة";
+
+}
+
+}
+
+document.getElementById("profit").innerHTML =
+profit.toFixed(2);
+
+document.getElementById("loss").innerHTML =
+loss.toFixed(2);
+
+document.getElementById("wins").innerHTML =
+wins;
+
+document.getElementById("losses").innerHTML =
+losses;
+
+}
+
+function startBot(){
+
+if(running) return;
+
+running = true;
+
+interval = setInterval(()=>{
+
+updatePrice();
+
+createSignal();
+
+checkTrade();
+
+},2000);
+
+}
+
+function stopBot(){
+
+running = false;
+
+clearInterval(interval);
+
+document.getElementById("signal").innerHTML =
+"⏹ تم إيقاف البوت";
+
+}
+
+</script>
+
+</body>
+</html>
