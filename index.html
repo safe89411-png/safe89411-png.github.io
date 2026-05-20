@@ -1,216 +1,42 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>موقع التقنية والألعاب</title>
+<div class="menu">
+
+<a href="index.html">🏠 الرئيسية</a>
+
+<a href="articles.html">📚 المقالات</a>
+
+<a href="news.html">📰 الأخبار</a>
+
+<a href="trade.html">📈 التداول</a>
+
+<a href="goldbot.html">🤖 بوت التداول</a>
+
+<a href="videos.html">🎬 الفيديوهات</a>
+
+<a href="game.html">🎮 اللعبة</a>
+
+<a href="privacy.html">🔒 الخصوصية</a>
+
+</div>
 
 <style>
-body{
-margin:0;
-font-family:Arial;
-background:#f1f1f1;
-direction:rtl;
-}
-
-header{
-background:#08122e;
-color:white;
-padding:40px 20px;
-text-align:center;
-}
-
-header h1{
-font-size:45px;
-margin:0;
-}
-
-header p{
-font-size:22px;
-margin-top:20px;
-}
 
 .menu{
-background:#2155ff;
-padding:20px;
 display:flex;
 flex-wrap:wrap;
+gap:10px;
 justify-content:center;
-gap:15px;
+padding:20px;
+background:#1144cc;
 }
 
 .menu a{
-background:#2f5fff;
+background:#2255ff;
 color:white;
-padding:15px 25px;
+padding:15px 20px;
 border-radius:15px;
 text-decoration:none;
-font-size:22px;
+font-size:20px;
+font-weight:bold;
 }
 
-.box{
-background:white;
-margin:25px;
-padding:25px;
-border-radius:25px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
-}
-
-.box h2{
-font-size:40px;
-}
-
-.btn{
-display:inline-block;
-background:red;
-color:white;
-padding:20px 40px;
-border-radius:15px;
-text-decoration:none;
-font-size:28px;
-margin-top:20px;
-}
-
-.trade{
-background:#111827;
-color:white;
-padding:20px;
-border-radius:20px;
-margin-top:20px;
-}
-
-.green{
-color:#00ff66;
-font-size:28px;
-}
-
-.red{
-color:red;
-font-size:28px;
-}
-
-.article{
-background:#fafafa;
-padding:20px;
-margin-top:15px;
-border-radius:15px;
-line-height:2;
-font-size:22px;
-}
-
-video{
-width:100%;
-border-radius:15px;
-margin-top:15px;
-}
 </style>
-
-</head>
-<body>
-
-<header>
-<h1>موقع التقنية والألعاب</h1>
-<p>مقالات - ألعاب - تداول - فيديوهات - أخبار</p>
-</header>
-
-<div class="menu">
-<a href="#game">🎮 اللعبة</a>
-<a href="#trade">🤖 التداول</a>
-<a href="#articles">📄 المقالات</a>
-<a href="#videos">🎬 الفيديوهات</a>
-<a href="#news">📰 الأخبار</a>
-</div>
-
-<div class="box" id="game">
-<h2>🎮 لعبة الحرب</h2>
-<p>العب واربح نقاط داخل اللعبة الممتعة.</p>
-<a class="btn" href="game.html">ابدأ اللعب</a>
-</div>
-
-<div class="box" id="trade">
-<h2>🤖 بوت التداول</h2>
-
-<div class="trade">
-<p>الحساب : DEMO MT5</p>
-
-<p class="green">✅ آخر صفقة: BUY GOLD</p>
-
-<p>سعر الدخول: 3345</p>
-
-<p>الربح الحالي: +12.5$</p>
-
-<p>إجمالي الربح: 245$</p>
-
-<p>الخسائر: -80$</p>
-
-<p>نسبة الفوز: 74%</p>
-
-<p style="margin-top:20px;">
-هذا القسم يعرض نتائج البوت فقط ولا يمكن للمستخدمين التحكم به.
-</p>
-</div>
-
-</div>
-
-<div class="box" id="articles">
-<h2>📄 المقالات</h2>
-
-<div class="article">
-<h3>الربح من الإنترنت</h3>
-<p>
-يمكن الربح من الإنترنت عبر إنشاء موقع إلكتروني يحتوي على مقالات وألعاب وفيديوهات.
-كلما زاد عدد الزوار زادت الأرباح من الإعلانات.
-</p>
-</div>
-
-<div class="article">
-<h3>تعلم التداول</h3>
-<p>
-التداول يعتمد على تحليل السوق وإدارة رأس المال.
-لا يوجد ربح مضمون ويجب استخدام حساب تجريبي أولاً.
-</p>
-</div>
-
-<div class="article">
-<h3>أفضل الهواتف للألعاب</h3>
-<p>
-الهواتف القوية تحتاج معالج سريع وذاكرة كبيرة للحصول على أداء ممتاز.
-</p>
-</div>
-
-</div>
-
-<div class="box" id="videos">
-<h2>🎬 الفيديوهات</h2>
-
-<video controls>
-<source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-</video>
-
-<video controls>
-<source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
-</video>
-
-</div>
-
-<div class="box" id="news">
-<h2>📰 الأخبار</h2>
-
-<div class="article">
-<h3>ارتفاع الذهب اليوم</h3>
-<p>
-شهد الذهب ارتفاعاً جديداً بسبب تحركات الأسواق العالمية.
-</p>
-</div>
-
-<div class="article">
-<h3>أخبار الألعاب</h3>
-<p>
-تم إطلاق تحديثات جديدة للعديد من ألعاب القتال والأونلاين.
-</p>
-</div>
-
-</div>
-
-</body>
-</html>

@@ -1,133 +1,101 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>بوت الذهب الاحترافي</title>
+<title>بوت تداول الذهب</title>
 
 <style>
 
 body{
-margin:0;
-background:#0b0f19;
-font-family:Arial;
-direction:rtl;
+background:#0b1020;
 color:white;
+font-family:Arial;
+margin:0;
+padding:0;
+text-align:center;
 }
 
-header{
+.top{
 background:#111827;
 padding:20px;
-text-align:center;
-font-size:32px;
+font-size:30px;
 font-weight:bold;
 }
 
-.container{
+.box{
+background:#1f2937;
+margin:20px;
 padding:20px;
-}
-
-.card{
-background:#161b22;
 border-radius:20px;
-padding:20px;
-margin-top:20px;
-box-shadow:0 0 20px rgba(0,0,0,0.4);
 }
 
 .price{
-font-size:50px;
-text-align:center;
+font-size:45px;
+margin-top:20px;
 color:gold;
-margin-top:20px;
-}
-
-.signal{
-font-size:35px;
-text-align:center;
-margin-top:20px;
-font-weight:bold;
 }
 
 .buy{
-color:#00ff99;
+color:#00ff88;
+font-size:30px;
 }
 
 .sell{
-color:#ff4444;
-}
-
-button{
-width:100%;
-padding:20px;
-font-size:28px;
-border:none;
-border-radius:15px;
-margin-top:20px;
-font-weight:bold;
-}
-
-.start{
-background:#00c853;
-color:white;
-}
-
-.stop{
-background:#d50000;
-color:white;
+color:red;
+font-size:30px;
 }
 
 .stats{
-margin-top:20px;
-font-size:24px;
+font-size:22px;
 line-height:2;
 }
 
-.tradebox{
-background:#0f172a;
-padding:15px;
-border-radius:15px;
-margin-top:15px;
-font-size:22px;
+button{
+background:#00aa55;
+border:none;
+padding:18px 40px;
+font-size:25px;
+border-radius:20px;
+color:white;
+margin-top:20px;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<header>
-🤖 بوت تداول الذهب
-</header>
-
-<div class="container">
-
-<div class="card">
-
-<div class="price" id="price">
-1930$
+<div class="top">
+🤖 بوت تداول الذهب XAUUSD
 </div>
 
-<div class="signal" id="signal">
-في انتظار التشغيل
+<div class="box">
+
+<h2>السعر الحالي</h2>
+
+<div class="price" id="gold">
+2335.20
 </div>
 
-<button class="start" onclick="startBot()">
-▶ تشغيل البوت
+</div>
+
+<div class="box">
+
+<h2>إشارة البوت</h2>
+
+<div id="signal" class="buy">
+BUY
+</div>
+
+<button onclick="startBot()">
+تشغيل البوت
 </button>
 
-<button class="stop" onclick="stopBot()">
-⏹ إيقاف البوت
-</button>
-
-<div class="tradebox" id="tradeInfo">
-لا توجد صفقة
 </div>
 
-<div class="stats">
+<div class="box stats">
 
 <div>
 💰 الأرباح:
@@ -151,16 +119,9 @@ font-size:22px;
 
 </div>
 
-</div>
-
-</div>
-
 <script>
 
-let running = false;
-let interval;
-
-let price = 1930;
+let price = 2335;
 
 let profit = 0;
 let loss = 0;
@@ -168,121 +129,49 @@ let loss = 0;
 let wins = 0;
 let losses = 0;
 
-let position = null;
-let entry = 0;
+function startBot(){
 
-function updatePrice(){
+setInterval(()=>{
 
-let move = (Math.random()*8-4);
+let move = (Math.random()*4)-2;
 
 price += move;
 
-document.getElementById("price").innerHTML =
-price.toFixed(2)+"$";
+document.getElementById("gold").innerHTML =
+price.toFixed(2);
 
-}
-
-function createSignal(){
-
-if(position !== null) return;
-
-let rand = Math.random();
-
-entry = price;
-
-if(rand > 0.5){
-
-position = "BUY";
+let signal =
+Math.random() > 0.5 ? "BUY" : "SELL";
 
 document.getElementById("signal").innerHTML =
-"🟢 BUY";
+signal;
+
+if(signal=="BUY"){
 
 document.getElementById("signal").className =
-"signal buy";
-
-document.getElementById("tradeInfo").innerHTML =
-"شراء الذهب من "+entry.toFixed(2);
+"buy";
 
 }else{
 
-position = "SELL";
-
-document.getElementById("signal").innerHTML =
-"🔴 SELL";
-
 document.getElementById("signal").className =
-"signal sell";
-
-document.getElementById("tradeInfo").innerHTML =
-"بيع الذهب من "+entry.toFixed(2);
+"sell";
 
 }
 
-}
+let result =
+Math.random();
 
-function checkTrade(){
+if(result > 0.5){
 
-if(position==="BUY"){
-
-let floating = price-entry;
-
-if(floating>=3){
-
-profit += floating;
+profit += Math.random()*10;
 
 wins++;
 
-position = null;
+}else{
 
-document.getElementById("tradeInfo").innerHTML =
-"💰 تم تحقيق ربح";
-
-}
-
-else if(floating<=-3){
-
-loss += Math.abs(floating);
+loss += Math.random()*5;
 
 losses++;
-
-position = null;
-
-document.getElementById("tradeInfo").innerHTML =
-"❌ خسارة الصفقة";
-
-}
-
-}
-
-if(position==="SELL"){
-
-let floating = entry-price;
-
-if(floating>=3){
-
-profit += floating;
-
-wins++;
-
-position = null;
-
-document.getElementById("tradeInfo").innerHTML =
-"💰 تم تحقيق ربح";
-
-}
-
-else if(floating<=-3){
-
-loss += Math.abs(floating);
-
-losses++;
-
-position = null;
-
-document.getElementById("tradeInfo").innerHTML =
-"❌ خسارة الصفقة";
-
-}
 
 }
 
@@ -298,34 +187,7 @@ wins;
 document.getElementById("losses").innerHTML =
 losses;
 
-}
-
-function startBot(){
-
-if(running) return;
-
-running = true;
-
-interval = setInterval(()=>{
-
-updatePrice();
-
-createSignal();
-
-checkTrade();
-
-},2000);
-
-}
-
-function stopBot(){
-
-running = false;
-
-clearInterval(interval);
-
-document.getElementById("signal").innerHTML =
-"⏹ تم إيقاف البوت";
+},3000);
 
 }
 
