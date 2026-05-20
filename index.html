@@ -6,16 +6,15 @@
 <title>موقع التقنية والألعاب</title>
 
 <style>
-
 body{
 margin:0;
-font-family:Tahoma;
+font-family:Arial;
 background:#f1f1f1;
 direction:rtl;
 }
 
 header{
-background:#071633;
+background:#08122e;
 color:white;
 padding:40px 20px;
 text-align:center;
@@ -27,12 +26,12 @@ margin:0;
 }
 
 header p{
-margin-top:20px;
 font-size:22px;
+margin-top:20px;
 }
 
-nav{
-background:#2156ff;
+.menu{
+background:#2155ff;
 padding:20px;
 display:flex;
 flex-wrap:wrap;
@@ -40,174 +39,175 @@ justify-content:center;
 gap:15px;
 }
 
-nav a{
-background:#2348d8;
+.menu a{
+background:#2f5fff;
 color:white;
-text-decoration:none;
-padding:15px 20px;
+padding:15px 25px;
 border-radius:15px;
+text-decoration:none;
 font-size:22px;
 }
 
-.container{
-padding:20px;
-}
-
-.card{
+.box{
 background:white;
+margin:25px;
 padding:25px;
 border-radius:25px;
-margin-bottom:25px;
 box-shadow:0 0 10px rgba(0,0,0,0.1);
 }
 
-.card h2{
-font-size:42px;
-}
-
-.card p{
-font-size:24px;
-line-height:1.8;
+.box h2{
+font-size:40px;
 }
 
 .btn{
 display:inline-block;
 background:red;
 color:white;
-padding:18px 35px;
-border-radius:18px;
+padding:20px 40px;
+border-radius:15px;
 text-decoration:none;
 font-size:28px;
-margin-top:15px;
+margin-top:20px;
 }
 
-.profit{
-color:green;
-font-size:30px;
-font-weight:bold;
+.trade{
+background:#111827;
+color:white;
+padding:20px;
+border-radius:20px;
+margin-top:20px;
 }
 
-.loss{
+.green{
+color:#00ff66;
+font-size:28px;
+}
+
+.red{
 color:red;
 font-size:28px;
 }
 
+.article{
+background:#fafafa;
+padding:20px;
+margin-top:15px;
+border-radius:15px;
+line-height:2;
+font-size:22px;
+}
+
+video{
+width:100%;
+border-radius:15px;
+margin-top:15px;
+}
 </style>
 
 </head>
 <body>
 
 <header>
-
 <h1>موقع التقنية والألعاب</h1>
-
-<p>
-مقالات - ألعاب - تداول - بوت تداول - فيديوهات
-</p>
-
+<p>مقالات - ألعاب - تداول - فيديوهات - أخبار</p>
 </header>
 
-<nav>
+<div class="menu">
+<a href="#game">🎮 اللعبة</a>
+<a href="#trade">🤖 التداول</a>
+<a href="#articles">📄 المقالات</a>
+<a href="#videos">🎬 الفيديوهات</a>
+<a href="#news">📰 الأخبار</a>
+</div>
 
-<a href="#">الرئيسية</a>
-
-<a href="#articles">المقالات</a>
-
-<a href="game.html">🎮 اللعبة</a>
-
-<a href="#trade">💹 التداول</a>
-
-<a href="#bot">🤖 بوت التداول</a>
-
-</nav>
-
-<div class="container">
-
-<div class="card">
-
+<div class="box" id="game">
 <h2>🎮 لعبة الحرب</h2>
-
-<p>
-العب الآن واربح نقاط داخل اللعبة الممتعة.
-</p>
-
-<a class="btn" href="game.html">
-ابدأ اللعب
-</a>
-
+<p>العب واربح نقاط داخل اللعبة الممتعة.</p>
+<a class="btn" href="game.html">ابدأ اللعب</a>
 </div>
 
-<div class="card" id="trade">
-
-<h2>💹 التداول</h2>
-
-<p>
-عرض نتائج حساب MT5 الحقيقي والديمو الخاص بك.
-</p>
-
-<p class="profit">
-+1250$ أرباح هذا الأسبوع
-</p>
-
-<p class="loss">
--120$ خسائر
-</p>
-
-<p>
-عدد الصفقات: 42 صفقة
-</p>
-
-</div>
-
-<div class="card" id="bot">
-
+<div class="box" id="trade">
 <h2>🤖 بوت التداول</h2>
 
-<p>
-البوت يعمل تلقائياً على الذهب XAUUSD عبر MT5.
-</p>
+<div class="trade">
+<p>الحساب : DEMO MT5</p>
 
-<p>
-الحالة: يعمل الآن ✅
-</p>
+<p class="green">✅ آخر صفقة: BUY GOLD</p>
 
-<p>
-آخر صفقة:
-BUY GOLD 3372.10
-</p>
+<p>سعر الدخول: 3345</p>
 
-<p class="profit">
-ربح الصفقة: +18$
+<p>الربح الحالي: +12.5$</p>
+
+<p>إجمالي الربح: 245$</p>
+
+<p>الخسائر: -80$</p>
+
+<p>نسبة الفوز: 74%</p>
+
+<p style="margin-top:20px;">
+هذا القسم يعرض نتائج البوت فقط ولا يمكن للمستخدمين التحكم به.
 </p>
+</div>
 
 </div>
 
-<div class="card" id="articles">
-
+<div class="box" id="articles">
 <h2>📄 المقالات</h2>
 
+<div class="article">
+<h3>الربح من الإنترنت</h3>
 <p>
-تعلم الربح من الانترنت والتداول والتقنية الحديثة.
+يمكن الربح من الإنترنت عبر إنشاء موقع إلكتروني يحتوي على مقالات وألعاب وفيديوهات.
+كلما زاد عدد الزوار زادت الأرباح من الإعلانات.
 </p>
+</div>
 
-<h3>📌 الربح من الانترنت</h3>
-
+<div class="article">
+<h3>تعلم التداول</h3>
 <p>
-يمكنك الربح من الإعلانات والتطبيقات والألعاب والمواقع.
+التداول يعتمد على تحليل السوق وإدارة رأس المال.
+لا يوجد ربح مضمون ويجب استخدام حساب تجريبي أولاً.
 </p>
+</div>
 
-<h3>📌 التداول</h3>
-
+<div class="article">
+<h3>أفضل الهواتف للألعاب</h3>
 <p>
-تعلم إدارة رأس المال وتحليل الذهب والعملات.
+الهواتف القوية تحتاج معالج سريع وذاكرة كبيرة للحصول على أداء ممتاز.
 </p>
+</div>
 
-<h3>📌 الذكاء الاصطناعي</h3>
+</div>
 
+<div class="box" id="videos">
+<h2>🎬 الفيديوهات</h2>
+
+<video controls>
+<source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+</video>
+
+<video controls>
+<source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+</video>
+
+</div>
+
+<div class="box" id="news">
+<h2>📰 الأخبار</h2>
+
+<div class="article">
+<h3>ارتفاع الذهب اليوم</h3>
 <p>
-كيف تصنع تطبيقات وألعاب باستخدام الذكاء الاصطناعي.
+شهد الذهب ارتفاعاً جديداً بسبب تحركات الأسواق العالمية.
 </p>
+</div>
 
+<div class="article">
+<h3>أخبار الألعاب</h3>
+<p>
+تم إطلاق تحديثات جديدة للعديد من ألعاب القتال والأونلاين.
+</p>
 </div>
 
 </div>
