@@ -1,25 +1,69 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 
 <head>
 
 <meta charset="UTF-8">
-<title>الفيديوهات</title>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+الفيديوهات
+</title>
 
 <style>
 
 body{
-background:#111;
-color:white;
+margin:0;
+background:#0f172a;
 font-family:Arial;
+direction:rtl;
+color:white;
+}
+
+.top{
+background:#111827;
+padding:20px;
+font-size:38px;
+font-weight:bold;
+text-align:center;
+}
+
+.search{
+padding:20px;
+text-align:center;
+}
+
+.search input{
+width:85%;
+padding:18px;
+font-size:22px;
+border:none;
+border-radius:15px;
+}
+
+.search button{
+padding:15px 25px;
+font-size:22px;
+border:none;
+border-radius:15px;
+background:red;
+color:white;
+margin-top:15px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr;
+gap:20px;
 padding:20px;
 }
 
 .video{
-background:#222;
-padding:20px;
-border-radius:15px;
-margin-bottom:20px;
+background:#1e293b;
+padding:15px;
+border-radius:20px;
 }
 
 iframe{
@@ -29,37 +73,163 @@ border:none;
 border-radius:15px;
 }
 
+.title{
+font-size:22px;
+margin-top:10px;
+text-align:center;
+}
+
+.tiktok{
+background:black;
+height:100vh;
+scroll-snap-align:start;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+}
+
+.tiktok iframe{
+width:100%;
+height:80vh;
+border:none;
+}
+
+.tiktokTitle{
+font-size:28px;
+margin-top:10px;
+}
+
 </style>
 
 </head>
 
 <body>
 
-<h1>
+<div class="top">
+
 🎬 الفيديوهات
-</h1>
+
+</div>
+
+<div class="search">
+
+<input
+id="searchInput"
+placeholder="ابحث عن فيديو">
+
+<br>
+
+<button onclick="searchVideo()">
+
+بحث
+
+</button>
+
+</div>
+
+<div class="grid">
 
 <div class="video">
 
-<h2>
-فيديو ألعاب
-</h2>
-
-<iframe src="https://www.youtube.com/embed/RiM4VZ4j4iM">
+<iframe
+src="https://www.youtube.com/embed/jNQXAC9IVRw"
+allowfullscreen>
 </iframe>
+
+<div class="title">
+أول فيديو على يوتيوب
+</div>
 
 </div>
 
 <div class="video">
 
-<h2>
-فيديو تداول
-</h2>
-
-<iframe src="https://www.youtube.com/embed/ssutcyQ2YJ4">
+<iframe
+src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+allowfullscreen>
 </iframe>
 
+<div class="title">
+فيديو مشهور
 </div>
+
+</div>
+
+<div class="video">
+
+<iframe
+src="https://www.youtube.com/embed/aqz-KE-bpKQ"
+allowfullscreen>
+</iframe>
+
+<div class="title">
+فيديو 4K
+</div>
+
+</div>
+
+</div>
+
+<div class="top">
+
+🎵 تانون
+
+</div>
+
+<div class="tiktok">
+
+<iframe
+src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+allowfullscreen>
+</iframe>
+
+<div class="tiktokTitle">
+مقطع قصير
+</div>
+
+</div>
+
+<div class="tiktok">
+
+<iframe
+src="https://www.youtube.com/embed/jNQXAC9IVRw"
+allowfullscreen>
+</iframe>
+
+<div class="tiktokTitle">
+مقطع ثاني
+</div>
+
+</div>
+
+<script>
+
+function searchVideo(){
+
+let q =
+document.getElementById(
+"searchInput"
+).value;
+
+if(q == ""){
+
+alert("اكتب شيء");
+
+return;
+
+}
+
+window.open(
+"https://www.youtube.com/results?search_query="
++ encodeURIComponent(q),
+"_blank"
+);
+
+}
+
+</script>
 
 </body>
+
 </html>
