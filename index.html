@@ -23,28 +23,30 @@ color:white;
 }
 
 .top{
-padding:40px;
-font-size:55px;
+padding:35px;
+font-size:50px;
 font-weight:bold;
 text-align:center;
 }
 
-.cards{
+.menu{
 padding:20px;
 }
 
-.card{
+.btn{
 background:#4c67ff;
-padding:60px 20px;
-border-radius:40px;
-margin-top:35px;
-font-size:55px;
+padding:45px;
+border-radius:35px;
+margin-top:25px;
+font-size:45px;
 font-weight:bold;
 text-align:center;
-box-shadow:0 0 30px rgba(0,0,0,0.4);
+box-shadow:0 0 25px rgba(0,0,0,0.4);
+cursor:pointer;
 }
 
-.section{
+.page{
+display:none;
 padding:20px;
 }
 
@@ -56,14 +58,24 @@ margin-top:25px;
 }
 
 .title{
-font-size:45px;
+font-size:40px;
 font-weight:bold;
 margin-bottom:20px;
 }
 
 .text{
-font-size:30px;
+font-size:28px;
 line-height:2;
+}
+
+.back{
+background:red;
+padding:15px 25px;
+border:none;
+border-radius:20px;
+font-size:24px;
+color:white;
+margin-top:20px;
 }
 
 iframe{
@@ -74,92 +86,36 @@ border-radius:20px;
 margin-top:20px;
 }
 
-.short{
-height:80vh;
-background:black;
-border-radius:25px;
-overflow:hidden;
-margin-top:30px;
-}
-
-.short iframe{
-height:100%;
-}
-
-.search{
-padding:20px;
-text-align:center;
-}
-
-.search input{
-width:85%;
-padding:20px;
-font-size:28px;
-border:none;
-border-radius:20px;
-}
-
-.search button{
-padding:18px 35px;
-font-size:28px;
-border:none;
-border-radius:20px;
-background:red;
-color:white;
-margin-top:15px;
-}
-
 .ad{
 background:white;
+padding:25px;
+border-radius:25px;
+margin-top:20px;
+font-size:32px;
+text-align:center;
+color:black;
+font-weight:bold;
+}
+
+.signal{
+background:black;
 padding:30px;
 border-radius:25px;
-margin-top:25px;
+margin-top:20px;
 text-align:center;
-font-size:35px;
+font-size:55px;
 font-weight:bold;
-color:black;
+color:gold;
 }
 
-.msg{
-background:#4c67ff;
-padding:20px;
+.tradebtn{
+background:#00aa55;
+padding:20px 30px;
+border:none;
 border-radius:20px;
-margin-top:15px;
 font-size:28px;
-}
-
-.chatInput{
-display:flex;
-gap:10px;
-margin-top:15px;
-}
-
-.chatInput input{
-flex:1;
-padding:18px;
-font-size:25px;
-border:none;
-border-radius:20px;
-}
-
-.chatInput button{
-padding:18px 25px;
-font-size:24px;
-border:none;
-border-radius:20px;
-background:#111827;
 color:white;
-}
-
-.game{
-background:black;
-height:230px;
-border-radius:25px;
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:60px;
-margin-top:25px;
+margin-top:20px;
 }
 
 </style>
@@ -174,69 +130,53 @@ margin-top:25px;
 
 </div>
 
-<div class="cards">
+<div class="menu" id="menu">
 
-<div class="card">
-
-📚 المقالات
-
-</div>
-
-<div class="card">
-
-🎮 اللعبة
-
-</div>
-
-<div class="card">
-
-🤖 بوت التداول
-
-</div>
-
-<div class="card">
-
-📈 التداول
-
-</div>
-
-<div class="card">
+<div class="btn"
+onclick="openPage('videos')">
 
 🎬 الفيديوهات
 
 </div>
 
-<div class="card">
+<div class="btn"
+onclick="openPage('tanon')">
 
 🎵 تانون
 
 </div>
 
-<div class="card">
+<div class="btn"
+onclick="openPage('trade')">
+
+🤖 بوت التداول
+
+</div>
+
+<div class="btn"
+onclick="openPage('chat')">
 
 💬 المراسلات
 
 </div>
 
-</div>
+<div class="btn"
+onclick="openPage('games')">
 
-<div class="search">
-
-<input
-id="searchInput"
-placeholder="ابحث عن فيديو">
-
-<br>
-
-<button onclick="searchVideo()">
-
-بحث
-
-</button>
+🎮 الألعاب
 
 </div>
 
-<div class="section">
+<div class="btn"
+onclick="openPage('articles')">
+
+📚 المقالات
+
+</div>
+
+</div>
+
+<div class="page" id="videos">
 
 <div class="box">
 
@@ -248,17 +188,12 @@ placeholder="ابحث عن فيديو">
 
 <div class="text">
 
-قسم فيديوهات كامل مثل يوتيوب يحتوي على مقاطع كثيرة وصوت وصورة وبحث وفيديوهات جديدة.
+فيديوهات كاملة مثل يوتيوب.
 
 </div>
 
 <iframe
 src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-allowfullscreen>
-</iframe>
-
-<iframe
-src="https://www.youtube.com/embed/aqz-KE-bpKQ"
 allowfullscreen>
 </iframe>
 
@@ -271,13 +206,20 @@ allowfullscreen>
 
 <div class="ad">
 
-🔥 إعلان داخل التطبيق 🔥
+📢 إعلان فيديوهات
 
 </div>
 
+<button class="back"
+onclick="backHome()">
+
+رجوع
+
+</button>
+
 </div>
 
-<div class="section">
+<div class="page" id="tanon">
 
 <div class="box">
 
@@ -289,11 +231,9 @@ allowfullscreen>
 
 <div class="text">
 
-قسم مقاطع قصيرة مثل TikTok يعمل بالصوت والصورة.
+مقاطع قصيرة مثل TikTok.
 
 </div>
-
-<div class="short">
 
 <iframe
 src="https://www.youtube.com/embed/ysz5S6PUM-U"
@@ -302,26 +242,69 @@ allowfullscreen>
 
 </div>
 
-<div class="short">
+<div class="ad">
 
-<iframe
-src="https://www.youtube.com/embed/hY7m5jjJ9mM"
-allowfullscreen>
-</iframe>
+🔥 إعلان تانون
 
 </div>
+
+<button class="back"
+onclick="backHome()">
+
+رجوع
+
+</button>
+
+</div>
+
+<div class="page" id="trade">
+
+<div class="box">
+
+<div class="title">
+
+🤖 بوت تداول الذهب والذكاء الاصطناعي
+
+</div>
+
+<div class="text">
+
+تحليل إشارات فوركس وذهب.
+
+</div>
+
+<div class="signal"
+id="signal">
+
+انتظار...
+
+</div>
+
+<button class="tradebtn"
+onclick="generateSignal()">
+
+تحليل السوق
+
+</button>
 
 </div>
 
 <div class="ad">
 
-📢 مساحة إعلانية كبيرة
+💰 إعلان تداول
 
 </div>
 
+<button class="back"
+onclick="backHome()">
+
+رجوع
+
+</button>
+
 </div>
 
-<div class="section">
+<div class="page" id="chat">
 
 <div class="box">
 
@@ -337,41 +320,24 @@ allowfullscreen>
 
 </div>
 
-<div id="messages">
+</div>
 
-<div class="msg">
+<div class="ad">
 
-مرحبا بك
+📢 إعلان مراسلات
 
 </div>
 
-</div>
+<button class="back"
+onclick="backHome()">
 
-<div class="chatInput">
-
-<input
-id="msg"
-placeholder="اكتب رسالة">
-
-<button onclick="sendMsg()">
-
-إرسال
+رجوع
 
 </button>
 
 </div>
 
-</div>
-
-<div class="ad">
-
-💰 إعلان جديد 💰
-
-</div>
-
-</div>
-
-<div class="section">
+<div class="page" id="games">
 
 <div class="box">
 
@@ -387,23 +353,24 @@ placeholder="اكتب رسالة">
 
 </div>
 
-<div class="game">
-
-🕹️
-
-</div>
-
 </div>
 
 <div class="ad">
 
-🔥 إعلان ألعاب 🔥
+🔥 إعلان ألعاب
 
 </div>
 
+<button class="back"
+onclick="backHome()">
+
+رجوع
+
+</button>
+
 </div>
 
-<div class="section">
+<div class="page" id="articles">
 
 <div class="box">
 
@@ -415,7 +382,7 @@ placeholder="اكتب رسالة">
 
 <div class="text">
 
-قسم مقالات طويلة وشروحات كثيرة مع إعلانات داخلية.
+قسم مقالات وشروحات كثيرة.
 
 </div>
 
@@ -427,61 +394,76 @@ placeholder="اكتب رسالة">
 
 </div>
 
+<button class="back"
+onclick="backHome()">
+
+رجوع
+
+</button>
+
 </div>
 
 <script>
 
-function searchVideo(){
+function openPage(id){
 
-let q =
 document.getElementById(
-"searchInput"
-).value;
+"menu"
+).style.display = "none";
 
-if(q == ""){
-
-alert("اكتب شيء");
-
-return;
-
-}
-
-window.open(
-"https://www.youtube.com/results?search_query="
-+ encodeURIComponent(q),
-"_blank"
+let pages =
+document.querySelectorAll(
+".page"
 );
 
+pages.forEach(p => {
+p.style.display = "none";
+});
+
+document.getElementById(
+id
+).style.display = "block";
+
 }
 
-function sendMsg(){
+function backHome(){
 
-let text =
-document.getElementById(
-"msg"
-).value;
+let pages =
+document.querySelectorAll(
+".page"
+);
 
-if(text == "") return;
-
-let box =
-
-`
-
-<div class="msg">
-
-${text}
-
-</div>
-
-`;
+pages.forEach(p => {
+p.style.display = "none";
+});
 
 document.getElementById(
-"messages"
-).innerHTML += box;
+"menu"
+).style.display = "block";
+
+}
+
+function generateSignal(){
+
+let signals = [
+
+"🟢 BUY شراء",
+
+"🔴 SELL بيع",
+
+"🟡 HOLD انتظار"
+
+];
+
+let random =
+Math.floor(
+Math.random()*signals.length
+);
 
 document.getElementById(
-"msg"
-).value = "";
+"signal"
+).innerHTML =
+signals[random];
 
 }
 
