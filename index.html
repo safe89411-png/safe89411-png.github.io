@@ -1,190 +1,425 @@
 <!DOCTYPE html>
 <html lang="ar">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>موقع التقنية والألعاب</title>
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+تطبيقي العالمي
+</title>
 
 <style>
 
 body{
 margin:0;
+background:#0f172a;
 font-family:Arial;
-background:#ececec;
 direction:rtl;
+color:white;
 }
 
-header{
-background:#020b33;
-color:white;
-padding:60px 20px;
+.top{
+background:#111827;
+padding:25px;
+font-size:40px;
+font-weight:bold;
+text-align:center;
+position:sticky;
+top:0;
+}
+
+.search{
+padding:20px;
 text-align:center;
 }
 
-header h1{
-font-size:70px;
-margin:0;
+.search input{
+width:85%;
+padding:18px;
+font-size:22px;
+border:none;
+border-radius:15px;
 }
 
-header p{
-font-size:35px;
-margin-top:30px;
-}
-
-.menu{
-background:#2350ff;
-padding:30px;
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:25px;
-}
-
-.card{
-width:260px;
-height:130px;
-background:#3f66ff;
-border-radius:30px;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:38px;
+.search button{
+padding:15px 25px;
+font-size:22px;
+border:none;
+border-radius:15px;
+background:red;
 color:white;
-text-decoration:none;
-font-weight:bold;
-box-shadow:0 0 20px #00000033;
+margin-top:10px;
 }
 
 .section{
-background:white;
-margin:25px;
-padding:40px;
-border-radius:35px;
-box-shadow:0 0 20px #00000022;
+padding:20px;
 }
 
-.section h2{
-font-size:55px;
-margin-bottom:25px;
-}
-
-.section p{
-font-size:30px;
-line-height:2;
-color:#333;
-}
-
-.btn{
-display:inline-block;
+.box{
+background:#1e293b;
+padding:25px;
+border-radius:25px;
 margin-top:20px;
-background:red;
-color:white;
-padding:20px 40px;
-font-size:30px;
+}
+
+.title{
+font-size:35px;
+margin-bottom:15px;
+}
+
+.text{
+font-size:23px;
+line-height:2;
+color:#ddd;
+}
+
+iframe{
+width:100%;
+height:230px;
+border:none;
 border-radius:20px;
-text-decoration:none;
+margin-top:15px;
+}
+
+.short{
+height:85vh;
+background:black;
+border-radius:20px;
+overflow:hidden;
+margin-top:25px;
+}
+
+.short iframe{
+height:100%;
+}
+
+.msgBox{
+background:#334155;
+padding:15px;
+border-radius:15px;
+margin-top:15px;
+font-size:22px;
+}
+
+.chatInput{
+display:flex;
+gap:10px;
+margin-top:15px;
+}
+
+.chatInput input{
+flex:1;
+padding:15px;
+font-size:22px;
+border:none;
+border-radius:15px;
+}
+
+.chatInput button{
+padding:15px 20px;
+font-size:22px;
+border:none;
+border-radius:15px;
+background:#2563eb;
+color:white;
+}
+
+.ad{
+background:white;
+padding:20px;
+border-radius:20px;
+margin-top:25px;
+text-align:center;
+}
+
+.game{
+background:black;
+height:220px;
+border-radius:20px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:45px;
+margin-top:20px;
 }
 
 </style>
+
 </head>
 
 <body>
 
-<header>
+<div class="top">
 
-<h1>
-موقع التقنية والألعاب
-</h1>
+🌍 تطبيقي العالمي
 
-<p>
-مقالات - ألعاب - تداول - فيديوهات - أخبار
-</p>
+</div>
 
-</header>
+<div class="search">
 
-<div class="menu">
+<input
+id="searchInput"
+placeholder="ابحث عن فيديو">
 
-<a class="card" href="articles.html">
-📚 المقالات
-</a>
+<br>
 
-<a class="card" href="game.html">
-🎮 اللعبة
-</a>
+<button onclick="searchVideo()">
 
-<a class="card" href="goldbot.html">
-🤖 بوت التداول
-</a>
+بحث
 
-<a class="card" href="trade.html">
-📈 التداول
-</a>
+</button>
 
-<a class="card" href="videos.html">
+</div>
+
+<div class="section">
+
+<div class="box">
+
+<div class="title">
+
 🎬 الفيديوهات
-</a>
 
-<a class="card" href="news.html">
-📰 الأخبار
-</a>
+</div>
+
+<div class="text">
+
+قسم فيديوهات كامل مثل يوتيوب يحتوي على فيديوهات كثيرة وصوت وصورة وبحث.
+
+</div>
+
+<iframe
+src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+allowfullscreen>
+</iframe>
+
+<iframe
+src="https://www.youtube.com/embed/aqz-KE-bpKQ"
+allowfullscreen>
+</iframe>
+
+<iframe
+src="https://www.youtube.com/embed/jNQXAC9IVRw"
+allowfullscreen>
+</iframe>
+
+</div>
+
+<div class="ad">
+
+🔥 إعلان داخل التطبيق 🔥
+
+</div>
 
 </div>
 
 <div class="section">
 
-<h2>
-🤖 بوت تداول الذهب
-</h2>
+<div class="box">
 
-<p>
+<div class="title">
 
-بوت تداول يعرض إشارات BUY و SELL ويعرض الأرباح والخسائر
-بشكل مباشر داخل الموقع.
+🎵 تانون
 
-</p>
+</div>
 
-<a href="goldbot.html" class="btn">
-فتح البوت
-</a>
+<div class="text">
+
+قسم مقاطع قصيرة مثل TikTok مع تشغيل صوت وصورة.
+
+</div>
+
+<div class="short">
+
+<iframe
+src="https://www.youtube.com/embed/ysz5S6PUM-U"
+allowfullscreen>
+</iframe>
+
+</div>
+
+<div class="short">
+
+<iframe
+src="https://www.youtube.com/embed/hY7m5jjJ9mM"
+allowfullscreen>
+</iframe>
+
+</div>
+
+</div>
+
+<div class="ad">
+
+📢 مساحة إعلانية
+
+</div>
 
 </div>
 
 <div class="section">
 
-<h2>
-🎮 لعبة الحرب
-</h2>
+<div class="box">
 
-<p>
+<div class="title">
 
-ادخل إلى اللعبة والعب داخل عالم ممتع واربح النقاط.
+💬 المراسلات
 
-</p>
+</div>
 
-<a href="game.html" class="btn">
-ابدأ اللعب
-</a>
+<div class="text">
+
+قسم مراسلات داخل التطبيق.
+
+</div>
+
+<div id="messages">
+
+<div class="msgBox">
+
+مرحبا بك
+
+</div>
+
+</div>
+
+<div class="chatInput">
+
+<input
+id="msg"
+placeholder="اكتب رسالة">
+
+<button onclick="sendMsg()">
+
+إرسال
+
+</button>
+
+</div>
+
+</div>
+
+<div class="ad">
+
+📢 إعلان جديد
+
+</div>
 
 </div>
 
 <div class="section">
 
-<h2>
+<div class="box">
+
+<div class="title">
+
+🎮 الألعاب
+
+</div>
+
+<div class="text">
+
+قسم ألعاب داخل التطبيق.
+
+</div>
+
+<div class="game">
+
+🕹️
+
+</div>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<div class="box">
+
+<div class="title">
+
 📚 المقالات
-</h2>
-
-<p>
-
-تعلم التداول والربح من الإنترنت والتقنية الحديثة.
-
-</p>
-
-<a href="articles.html" class="btn">
-قراءة المقالات
-</a>
 
 </div>
+
+<div class="text">
+
+قسم مقالات وشروحات طويلة مع إعلانات كثيرة.
+
+</div>
+
+</div>
+
+<div class="ad">
+
+💰 إعلان AdSense
+
+</div>
+
+</div>
+
+<script>
+
+function searchVideo(){
+
+let q =
+document.getElementById(
+"searchInput"
+).value;
+
+if(q == ""){
+
+alert("اكتب شيء");
+
+return;
+
+}
+
+window.open(
+"https://www.youtube.com/results?search_query="
++ encodeURIComponent(q),
+"_blank"
+);
+
+}
+
+function sendMsg(){
+
+let text =
+document.getElementById(
+"msg"
+).value;
+
+if(text == "") return;
+
+let box =
+
+`
+
+<div class="msgBox">
+
+${text}
+
+</div>
+
+`;
+
+document.getElementById(
+"messages"
+).innerHTML += box;
+
+document.getElementById(
+"msg"
+).value = "";
+
+}
+
+</script>
 
 </body>
+
 </html>
