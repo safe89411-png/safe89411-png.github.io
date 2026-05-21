@@ -16,20 +16,74 @@ content="width=device-width, initial-scale=1.0">
 
 body{
 margin:0;
-background:#0f172a;
+background:#1536ff;
 font-family:Arial;
 direction:rtl;
 color:white;
 }
 
 .top{
-background:#111827;
-padding:25px;
-font-size:40px;
+padding:40px;
+font-size:55px;
 font-weight:bold;
 text-align:center;
-position:sticky;
-top:0;
+}
+
+.cards{
+padding:20px;
+}
+
+.card{
+background:#4c67ff;
+padding:60px 20px;
+border-radius:40px;
+margin-top:35px;
+font-size:55px;
+font-weight:bold;
+text-align:center;
+box-shadow:0 0 30px rgba(0,0,0,0.4);
+}
+
+.section{
+padding:20px;
+}
+
+.box{
+background:#3249d9;
+padding:25px;
+border-radius:30px;
+margin-top:25px;
+}
+
+.title{
+font-size:45px;
+font-weight:bold;
+margin-bottom:20px;
+}
+
+.text{
+font-size:30px;
+line-height:2;
+}
+
+iframe{
+width:100%;
+height:240px;
+border:none;
+border-radius:20px;
+margin-top:20px;
+}
+
+.short{
+height:80vh;
+background:black;
+border-radius:25px;
+overflow:hidden;
+margin-top:30px;
+}
+
+.short iframe{
+height:100%;
 }
 
 .search{
@@ -39,70 +93,39 @@ text-align:center;
 
 .search input{
 width:85%;
-padding:18px;
-font-size:22px;
+padding:20px;
+font-size:28px;
 border:none;
-border-radius:15px;
+border-radius:20px;
 }
 
 .search button{
-padding:15px 25px;
-font-size:22px;
+padding:18px 35px;
+font-size:28px;
 border:none;
-border-radius:15px;
+border-radius:20px;
 background:red;
 color:white;
-margin-top:10px;
+margin-top:15px;
 }
 
-.section{
-padding:20px;
-}
-
-.box{
-background:#1e293b;
-padding:25px;
+.ad{
+background:white;
+padding:30px;
 border-radius:25px;
-margin-top:20px;
-}
-
-.title{
-font-size:35px;
-margin-bottom:15px;
-}
-
-.text{
-font-size:23px;
-line-height:2;
-color:#ddd;
-}
-
-iframe{
-width:100%;
-height:230px;
-border:none;
-border-radius:20px;
-margin-top:15px;
-}
-
-.short{
-height:85vh;
-background:black;
-border-radius:20px;
-overflow:hidden;
 margin-top:25px;
+text-align:center;
+font-size:35px;
+font-weight:bold;
+color:black;
 }
 
-.short iframe{
-height:100%;
-}
-
-.msgBox{
-background:#334155;
-padding:15px;
-border-radius:15px;
+.msg{
+background:#4c67ff;
+padding:20px;
+border-radius:20px;
 margin-top:15px;
-font-size:22px;
+font-size:28px;
 }
 
 .chatInput{
@@ -113,38 +136,30 @@ margin-top:15px;
 
 .chatInput input{
 flex:1;
-padding:15px;
-font-size:22px;
+padding:18px;
+font-size:25px;
 border:none;
-border-radius:15px;
+border-radius:20px;
 }
 
 .chatInput button{
-padding:15px 20px;
-font-size:22px;
+padding:18px 25px;
+font-size:24px;
 border:none;
-border-radius:15px;
-background:#2563eb;
-color:white;
-}
-
-.ad{
-background:white;
-padding:20px;
 border-radius:20px;
-margin-top:25px;
-text-align:center;
+background:#111827;
+color:white;
 }
 
 .game{
 background:black;
-height:220px;
-border-radius:20px;
+height:230px;
+border-radius:25px;
 display:flex;
 justify-content:center;
 align-items:center;
-font-size:45px;
-margin-top:20px;
+font-size:60px;
+margin-top:25px;
 }
 
 </style>
@@ -156,6 +171,52 @@ margin-top:20px;
 <div class="top">
 
 🌍 تطبيقي العالمي
+
+</div>
+
+<div class="cards">
+
+<div class="card">
+
+📚 المقالات
+
+</div>
+
+<div class="card">
+
+🎮 اللعبة
+
+</div>
+
+<div class="card">
+
+🤖 بوت التداول
+
+</div>
+
+<div class="card">
+
+📈 التداول
+
+</div>
+
+<div class="card">
+
+🎬 الفيديوهات
+
+</div>
+
+<div class="card">
+
+🎵 تانون
+
+</div>
+
+<div class="card">
+
+💬 المراسلات
+
+</div>
 
 </div>
 
@@ -187,7 +248,7 @@ placeholder="ابحث عن فيديو">
 
 <div class="text">
 
-قسم فيديوهات كامل مثل يوتيوب يحتوي على فيديوهات كثيرة وصوت وصورة وبحث.
+قسم فيديوهات كامل مثل يوتيوب يحتوي على مقاطع كثيرة وصوت وصورة وبحث وفيديوهات جديدة.
 
 </div>
 
@@ -228,7 +289,7 @@ allowfullscreen>
 
 <div class="text">
 
-قسم مقاطع قصيرة مثل TikTok مع تشغيل صوت وصورة.
+قسم مقاطع قصيرة مثل TikTok يعمل بالصوت والصورة.
 
 </div>
 
@@ -254,7 +315,7 @@ allowfullscreen>
 
 <div class="ad">
 
-📢 مساحة إعلانية
+📢 مساحة إعلانية كبيرة
 
 </div>
 
@@ -278,7 +339,7 @@ allowfullscreen>
 
 <div id="messages">
 
-<div class="msgBox">
+<div class="msg">
 
 مرحبا بك
 
@@ -304,7 +365,7 @@ placeholder="اكتب رسالة">
 
 <div class="ad">
 
-📢 إعلان جديد
+💰 إعلان جديد 💰
 
 </div>
 
@@ -334,6 +395,12 @@ placeholder="اكتب رسالة">
 
 </div>
 
+<div class="ad">
+
+🔥 إعلان ألعاب 🔥
+
+</div>
+
 </div>
 
 <div class="section">
@@ -348,7 +415,7 @@ placeholder="اكتب رسالة">
 
 <div class="text">
 
-قسم مقالات وشروحات طويلة مع إعلانات كثيرة.
+قسم مقالات طويلة وشروحات كثيرة مع إعلانات داخلية.
 
 </div>
 
@@ -356,7 +423,7 @@ placeholder="اكتب رسالة">
 
 <div class="ad">
 
-💰 إعلان AdSense
+📢 إعلان مقالات
 
 </div>
 
@@ -400,7 +467,7 @@ let box =
 
 `
 
-<div class="msgBox">
+<div class="msg">
 
 ${text}
 
