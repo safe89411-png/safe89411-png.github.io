@@ -25,14 +25,18 @@ color:white;
 .top{
 background:#111827;
 padding:20px;
-font-size:38px;
+font-size:40px;
 font-weight:bold;
 text-align:center;
+position:sticky;
+top:0;
+z-index:100;
 }
 
 .search{
-padding:20px;
+padding:15px;
 text-align:center;
+background:#111827;
 }
 
 .search input{
@@ -50,7 +54,7 @@ border:none;
 border-radius:15px;
 background:red;
 color:white;
-margin-top:15px;
+margin-top:10px;
 }
 
 .grid{
@@ -74,30 +78,43 @@ border-radius:15px;
 }
 
 .title{
-font-size:22px;
+font-size:24px;
 margin-top:10px;
-text-align:center;
 }
 
-.tiktok{
-background:black;
-height:100vh;
-scroll-snap-align:start;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-}
-
-.tiktok iframe{
-width:100%;
-height:80vh;
-border:none;
-}
-
-.tiktokTitle{
+.ad{
+background:#f59e0b;
+color:black;
+padding:20px;
+border-radius:20px;
 font-size:28px;
-margin-top:10px;
+font-weight:bold;
+text-align:center;
+margin-top:20px;
+}
+
+.shortBox{
+margin-top:30px;
+}
+
+.short{
+background:black;
+height:85vh;
+margin-top:25px;
+border-radius:20px;
+overflow:hidden;
+}
+
+.short iframe{
+width:100%;
+height:100%;
+}
+
+.shortTitle{
+padding:15px;
+font-size:26px;
+text-align:center;
+background:#111827;
 }
 
 </style>
@@ -108,7 +125,7 @@ margin-top:10px;
 
 <div class="top">
 
-🎬 الفيديوهات
+🎬 الفيديوهات + تانون
 
 </div>
 
@@ -128,82 +145,147 @@ placeholder="ابحث عن فيديو">
 
 </div>
 
-<div class="grid">
-
-<div class="video">
-
-<iframe
-src="https://www.youtube.com/embed/jNQXAC9IVRw"
-allowfullscreen>
-</iframe>
-
-<div class="title">
-أول فيديو على يوتيوب
-</div>
+<div class="grid" id="videos">
 
 </div>
 
-<div class="video">
+<div class="ad">
 
-<iframe
-src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-allowfullscreen>
-</iframe>
-
-<div class="title">
-فيديو مشهور
-</div>
+🔥 مساحة إعلانية 🔥
 
 </div>
 
-<div class="video">
-
-<iframe
-src="https://www.youtube.com/embed/aqz-KE-bpKQ"
-allowfullscreen>
-</iframe>
-
-<div class="title">
-فيديو 4K
-</div>
+<div class="shortBox" id="shorts">
 
 </div>
 
-</div>
+<div class="ad">
 
-<div class="top">
-
-🎵 تانون
-
-</div>
-
-<div class="tiktok">
-
-<iframe
-src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-allowfullscreen>
-</iframe>
-
-<div class="tiktokTitle">
-مقطع قصير
-</div>
-
-</div>
-
-<div class="tiktok">
-
-<iframe
-src="https://www.youtube.com/embed/jNQXAC9IVRw"
-allowfullscreen>
-</iframe>
-
-<div class="tiktokTitle">
-مقطع ثاني
-</div>
+📢 إعلان جديد داخل التطبيق
 
 </div>
 
 <script>
+
+const videos = [
+
+{
+title:"موسيقى",
+id:"dQw4w9WgXcQ"
+},
+
+{
+title:"4K فيديو",
+id:"aqz-KE-bpKQ"
+},
+
+{
+title:"الطبيعة",
+id:"6lt2JfJdGSY"
+},
+
+{
+title:"الفضاء",
+id:"GOAEIMx39-w"
+},
+
+{
+title:"ألعاب",
+id:"2g811Eo7K8U"
+},
+
+{
+title:"كرة القدم",
+id:"hY7m5jjJ9mM"
+},
+
+{
+title:"سيارات",
+id:"e-ORhEE9VVg"
+},
+
+{
+title:"أغاني",
+id:"ktvTqknDobU"
+},
+
+{
+title:"تكنولوجيا",
+id:"M7lc1UVf-VE"
+},
+
+{
+title:"يوتيوب",
+id:"jNQXAC9IVRw"
+}
+
+];
+
+function loadVideos(){
+
+let html = "";
+
+videos.forEach(v=>{
+
+html += `
+
+<div class="video">
+
+<iframe
+src="https://www.youtube.com/embed/${v.id}"
+allowfullscreen>
+</iframe>
+
+<div class="title">
+
+${v.title}
+
+</div>
+
+</div>
+
+`;
+
+});
+
+document.getElementById(
+"videos"
+).innerHTML = html;
+
+}
+
+function loadShorts(){
+
+let html = "";
+
+videos.forEach(v=>{
+
+html += `
+
+<div class="short">
+
+<iframe
+src="https://www.youtube.com/embed/${v.id}"
+allowfullscreen>
+</iframe>
+
+<div class="shortTitle">
+
+${v.title}
+
+</div>
+
+</div>
+
+`;
+
+});
+
+document.getElementById(
+"shorts"
+).innerHTML = html;
+
+}
 
 function searchVideo(){
 
@@ -227,6 +309,24 @@ window.open(
 );
 
 }
+
+loadVideos();
+
+loadShorts();
+
+setInterval(()=>{
+
+videos.push({
+
+title:"فيديو جديد",
+
+id:"ysz5S6PUM-U"
+
+});
+
+loadVideos();
+
+},30000);
 
 </script>
 
