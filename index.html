@@ -9,113 +9,137 @@
 content="width=device-width, initial-scale=1.0">
 
 <title>
-تطبيقي العالمي
+منصة التداول الاحترافية
 </title>
+
+<script src="https://s3.tradingview.com/tv.js"></script>
 
 <style>
 
 body{
 margin:0;
-background:#1536ff;
 font-family:Arial;
+background:#0b1020;
 direction:rtl;
 color:white;
 }
 
 .top{
-padding:35px;
-font-size:50px;
-font-weight:bold;
-text-align:center;
-}
-
-.menu{
-padding:20px;
-}
-
-.btn{
-background:#4c67ff;
-padding:45px;
-border-radius:35px;
-margin-top:25px;
+background:#111827;
+padding:25px;
 font-size:45px;
 font-weight:bold;
 text-align:center;
-box-shadow:0 0 25px rgba(0,0,0,0.4);
-cursor:pointer;
+box-shadow:0 0 20px black;
 }
 
-.page{
-display:none;
+.balanceBox{
+display:flex;
+justify-content:space-around;
 padding:20px;
+gap:15px;
+flex-wrap:wrap;
+}
+
+.balance{
+background:#1f2937;
+padding:25px;
+border-radius:25px;
+width:40%;
+text-align:center;
+font-size:28px;
+}
+
+.green{
+color:#00ff88;
+font-size:38px;
+font-weight:bold;
+}
+
+.red{
+color:#ff4444;
+font-size:38px;
+font-weight:bold;
+}
+
+.chart{
+margin:20px;
+border-radius:25px;
+overflow:hidden;
 }
 
 .box{
-background:#3249d9;
+background:#1f2937;
+margin:20px;
 padding:25px;
-border-radius:30px;
-margin-top:25px;
+border-radius:25px;
 }
 
 .title{
-font-size:40px;
+font-size:35px;
 font-weight:bold;
 margin-bottom:20px;
 }
 
-.text{
+.signal{
+background:black;
+padding:35px;
+border-radius:25px;
+text-align:center;
+font-size:50px;
+font-weight:bold;
+margin-top:20px;
+}
+
+button{
+padding:18px 35px;
 font-size:28px;
-line-height:2;
-}
-
-.back{
-background:red;
-padding:15px 25px;
 border:none;
-border-radius:20px;
-font-size:24px;
+border-radius:18px;
+margin-top:20px;
 color:white;
-margin-top:20px;
+cursor:pointer;
 }
 
-iframe{
-width:100%;
-height:240px;
-border:none;
-border-radius:20px;
-margin-top:20px;
+.buy{
+background:#00aa55;
+}
+
+.sell{
+background:#ff3333;
+}
+
+.hold{
+background:#f59e0b;
 }
 
 .ad{
 background:white;
-padding:25px;
-border-radius:25px;
-margin-top:20px;
-font-size:32px;
-text-align:center;
 color:black;
-font-weight:bold;
-}
-
-.signal{
-background:black;
 padding:30px;
-border-radius:25px;
-margin-top:20px;
+border-radius:20px;
 text-align:center;
-font-size:55px;
+font-size:35px;
 font-weight:bold;
-color:gold;
+margin-top:25px;
 }
 
-.tradebtn{
-background:#00aa55;
-padding:20px 30px;
-border:none;
+.news{
+background:#111827;
+padding:20px;
 border-radius:20px;
-font-size:28px;
-color:white;
 margin-top:20px;
+font-size:26px;
+line-height:2;
+}
+
+input{
+width:90%;
+padding:18px;
+font-size:24px;
+border:none;
+border-radius:15px;
+margin-top:15px;
 }
 
 </style>
@@ -126,162 +150,65 @@ margin-top:20px;
 
 <div class="top">
 
-🌍 تطبيقي العالمي
+📈 منصة التداول الاحترافية
 
 </div>
 
-<div class="menu" id="menu">
+<div class="balanceBox">
 
-<div class="btn"
-onclick="openPage('videos')">
+<div class="balance">
 
-🎬 الفيديوهات
+💰 رأس المال
 
-</div>
+<div class="green"
+id="capital">
 
-<div class="btn"
-onclick="openPage('tanon')">
-
-🎵 تانون
-
-</div>
-
-<div class="btn"
-onclick="openPage('trade')">
-
-🤖 بوت التداول
-
-</div>
-
-<div class="btn"
-onclick="openPage('chat')">
-
-💬 المراسلات
-
-</div>
-
-<div class="btn"
-onclick="openPage('games')">
-
-🎮 الألعاب
-
-</div>
-
-<div class="btn"
-onclick="openPage('articles')">
-
-📚 المقالات
+750$
 
 </div>
 
 </div>
 
-<div class="page" id="videos">
+<div class="balance">
+
+📊 الأرباح
+
+<div class="red"
+id="profit">
+
+0$
+
+</div>
+
+</div>
+
+</div>
+
+<div class="chart">
+
+<div id="tradingview_chart"
+style="height:500px;">
+</div>
+
+</div>
 
 <div class="box">
 
 <div class="title">
 
-🎬 الفيديوهات
-
-</div>
-
-<div class="text">
-
-فيديوهات كاملة مثل يوتيوب.
-
-</div>
-
-<iframe
-src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-allowfullscreen>
-</iframe>
-
-<iframe
-src="https://www.youtube.com/embed/jNQXAC9IVRw"
-allowfullscreen>
-</iframe>
-
-</div>
-
-<div class="ad">
-
-📢 إعلان فيديوهات
-
-</div>
-
-<button class="back"
-onclick="backHome()">
-
-رجوع
-
-</button>
-
-</div>
-
-<div class="page" id="tanon">
-
-<div class="box">
-
-<div class="title">
-
-🎵 تانون
-
-</div>
-
-<div class="text">
-
-مقاطع قصيرة مثل TikTok.
-
-</div>
-
-<iframe
-src="https://www.youtube.com/embed/ysz5S6PUM-U"
-allowfullscreen>
-</iframe>
-
-</div>
-
-<div class="ad">
-
-🔥 إعلان تانون
-
-</div>
-
-<button class="back"
-onclick="backHome()">
-
-رجوع
-
-</button>
-
-</div>
-
-<div class="page" id="trade">
-
-<div class="box">
-
-<div class="title">
-
-🤖 بوت تداول الذهب والذكاء الاصطناعي
-
-</div>
-
-<div class="text">
-
-تحليل إشارات فوركس وذهب.
+🤖 تحليل الذهب الحقيقي XAUUSD
 
 </div>
 
 <div class="signal"
 id="signal">
 
-انتظار...
+انتظار التحليل...
 
 </div>
 
-<button class="tradebtn"
-onclick="generateSignal()">
+<button class="buy"
+onclick="analyzeMarket()">
 
 تحليل السوق
 
@@ -289,181 +216,226 @@ onclick="generateSignal()">
 
 </div>
 
-<div class="ad">
+<div class="box">
 
-💰 إعلان تداول
+<div class="title">
 
-</div>
-
-<button class="back"
-onclick="backHome()">
-
-رجوع
-
-</button>
+📡 سعر الذهب المباشر
 
 </div>
 
-<div class="page" id="chat">
+<div class="signal"
+id="goldPrice">
+
+جاري الاتصال...
+
+</div>
+
+</div>
 
 <div class="box">
 
 <div class="title">
 
-💬 المراسلات
+📰 أخبار السوق
 
 </div>
 
-<div class="text">
+<div class="news">
 
-قسم مراسلات داخل التطبيق.
+• الذهب يتحرك حسب قوة الدولار الأمريكي.<br><br>
 
-</div>
+• تابع الأخبار الاقتصادية قبل الدخول.<br><br>
 
-</div>
-
-<div class="ad">
-
-📢 إعلان مراسلات
+• لا تدخل بصفقات كبيرة بدون إدارة مخاطر.
 
 </div>
 
-<button class="back"
-onclick="backHome()">
-
-رجوع
-
-</button>
-
 </div>
-
-<div class="page" id="games">
 
 <div class="box">
 
 <div class="title">
 
-🎮 الألعاب
+💸 سحب الأرباح
 
 </div>
 
-<div class="text">
+<input
+placeholder="عنوان Binance أو المحفظة"
+id="wallet">
 
-قسم ألعاب داخل التطبيق.
+<input
+placeholder="المبلغ"
+id="amount">
 
-</div>
+<button class="hold"
+onclick="withdraw()">
 
-</div>
-
-<div class="ad">
-
-🔥 إعلان ألعاب
-
-</div>
-
-<button class="back"
-onclick="backHome()">
-
-رجوع
+طلب سحب
 
 </button>
 
 </div>
 
-<div class="page" id="articles">
-
-<div class="box">
-
-<div class="title">
-
-📚 المقالات
-
-</div>
-
-<div class="text">
-
-قسم مقالات وشروحات كثيرة.
-
-</div>
-
-</div>
-
 <div class="ad">
 
-📢 إعلان مقالات
-
-</div>
-
-<button class="back"
-onclick="backHome()">
-
-رجوع
-
-</button>
+🔥 مساحة إعلانية داخل التطبيق 🔥
 
 </div>
 
 <script>
 
-function openPage(id){
+new TradingView.widget({
 
-document.getElementById(
-"menu"
-).style.display = "none";
+"width":"100%",
 
-let pages =
-document.querySelectorAll(
-".page"
-);
+"height":500,
 
-pages.forEach(p => {
-p.style.display = "none";
+"symbol":"OANDA:XAUUSD",
+
+"interval":"15",
+
+"timezone":"Asia/Baghdad",
+
+"theme":"dark",
+
+"style":"1",
+
+"locale":"ar",
+
+"toolbar_bg":"#111827",
+
+"enable_publishing":false,
+
+"hide_top_toolbar":false,
+
+"allow_symbol_change":true,
+
+"container_id":"tradingview_chart"
+
 });
 
-document.getElementById(
-id
-).style.display = "block";
+let lastPrice = 0;
 
-}
-
-function backHome(){
-
-let pages =
-document.querySelectorAll(
-".page"
-);
-
-pages.forEach(p => {
-p.style.display = "none";
-});
-
-document.getElementById(
-"menu"
-).style.display = "block";
-
-}
-
-function generateSignal(){
-
-let signals = [
-
-"🟢 BUY شراء",
-
-"🔴 SELL بيع",
-
-"🟡 HOLD انتظار"
-
-];
-
-let random =
-Math.floor(
-Math.random()*signals.length
-);
+async function analyzeMarket(){
 
 document.getElementById(
 "signal"
 ).innerHTML =
-signals[random];
+
+"⏳ جاري تحليل السوق...";
+
+try{
+
+const response = await fetch(
+"https://api.gold-api.com/price/XAU"
+);
+
+const data = await response.json();
+
+let price = data.price;
+
+document.getElementById(
+"goldPrice"
+).innerHTML =
+
+"💰 " + price + " USD";
+
+let signal = "";
+
+if(lastPrice == 0){
+
+signal =
+
+"🟡 HOLD<br><br>" +
+
+"انتظار أول قراءة";
+
+}
+
+else if(price > lastPrice){
+
+signal =
+
+"🟢 BUY<br><br>" +
+
+"السوق صاعد";
+
+}
+
+else if(price < lastPrice){
+
+signal =
+
+"🔴 SELL<br><br>" +
+
+"السوق هابط";
+
+}
+
+else{
+
+signal =
+
+"🟡 HOLD<br><br>" +
+
+"السوق مستقر";
+
+}
+
+document.getElementById(
+"signal"
+).innerHTML = signal;
+
+lastPrice = price;
+
+}
+catch(error){
+
+document.getElementById(
+"signal"
+).innerHTML =
+
+"❌ فشل الاتصال بالسوق";
+
+}
+
+}
+
+function withdraw(){
+
+let wallet =
+document.getElementById(
+"wallet"
+).value;
+
+let amount =
+document.getElementById(
+"amount"
+).value;
+
+if(!wallet || !amount){
+
+alert("املأ الحقول");
+
+return;
+
+}
+
+alert(
+
+"✅ تم إرسال طلب السحب\n\n" +
+
+"📥 المحفظة:\n" +
+
+wallet +
+
+"\n\n💰 المبلغ:\n" +
+
+amount + "$"
+
+);
 
 }
 
