@@ -4,46 +4,48 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>بوت الذهب</title>
+<title>بوت الذهب الحقيقي</title>
 
 <script src="https://s3.tradingview.com/tv.js"></script>
 
 <style>
 
 body{
-background:#1828ff;
-font-family:sans-serif;
+background:#1f33ff;
+font-family:Arial;
+margin:0;
 color:white;
 text-align:center;
-margin:0;
 }
 
 .box{
-background:#1f2b45;
+background:#1b2338;
 margin:20px;
 padding:20px;
 border-radius:25px;
 }
 
+button{
+padding:15px 30px;
+font-size:22px;
+border:none;
+border-radius:15px;
+margin:10px;
+color:white;
+}
+
+.start{
+background:#00b140;
+}
+
+.stop{
+background:red;
+}
+
 .signal{
 font-size:55px;
 font-weight:bold;
-background:black;
-padding:30px;
-border-radius:25px;
-margin-bottom:20px;
-}
-
-.buy{
-color:#00ff66;
-}
-
-.sell{
-color:#ff3b3b;
-}
-
-.hold{
-color:gold;
+margin-top:20px;
 }
 
 .stats{
@@ -52,182 +54,232 @@ margin-top:15px;
 line-height:45px;
 }
 
+#tvchart{
+height:500px;
+margin-top:20px;
+border-radius:20px;
+overflow:hidden;
+}
+
 </style>
 </head>
 
 <body>
 
+<h1>🤖 بوت الذهب الحقيقي XAUUSD</h1>
+
 <div class="box">
 
-<h1>🤖 بوت الذهب الحقيقي</h1>
+<button class="start" onclick="startBot()">
+تشغيل البوت
+</button>
 
-<div id="signal" class="signal hold">
-HOLD
+<button class="stop" onclick="stopBot()">
+إيقاف البوت
+</button>
+
+<div id="signal" class="signal">
+OFF
 </div>
 
 <div class="stats">
 
-<div>💰 الربح: <span id="profit">0</span>$</div>
+<div>
+💰 الربح:
+<span id="profit">0</span>$
+</div>
 
-<div>❌ الخسارة: <span id="loss">0</span>$</div>
+<div>
+❌ الخسارة:
+<span id="loss">0</span>$
+</div>
 
-<div>✅ الصفقات الناجحة: <span id="wins">0</span></div>
+<div>
+✅ الفوز:
+<span id="wins">0</span>
+</div>
 
-<div>❌ الصفقات الخاسرة: <span id="losses">0</span></div>
-
-<div>📈 السعر الحالي: <span id="price">0</span></div>
-
+<div>
+❌ الخسائر:
+<span id="losses">0</span>
 </div>
 
 </div>
 
 <div id="tvchart"></div>
 
+</div>
+
 <script>
 
 new TradingView.widget({
-  "width":"100%",
-  "height":600,
-  "symbol":"OANDA:XAUUSD",
-  "interval":"5",
-  "timezone":"Asia/Baghdad",
-  "theme":"dark",
-  "style":"1",
-  "locale":"ar",
-  "container_id":"tvchart"
+"width":"100%",
+"height":500,
+"symbol":"OANDA:XAUUSD",
+"interval":"5",
+"timezone":"Asia/Baghdad",
+"theme":"dark",
+"style":"1",
+"locale":"ar",
+"toolbar_bg":"#000",
+"container_id":"tvchart"
 });
 
-let position = null;
-let entry = 0;
+let botRunning=false;
 
-let totalProfit = 0;
-let totalLoss = 0;
+let position=null;
 
-let wins = 0;
-let losses = 0;
+let entry=0;
 
-const TP = 0.5;
-const SL = 0.5;
+let profit=0;
+let loss=0;
 
-async function bot(){
+let wins=0;
+let losses=0;
 
-try{
+let TP=0.5;
+let SL=0.5;
 
-const res = await fetch(
-"https://api.binance.com/api/v3/depth?symbol=PAXGUSDT&limit=50"
-);
+async function getPrice(){
 
-const data = await res.json();
-
-const bids = data.bids;
-const asks = data.asks;
-
-const buyQty = parseFloat(bids[0][1]);
-const sellQty = parseFloat(asks[0][1]);
-
-const priceRes = await fetch(
+let r = await fetch(
 "https://api.binance.com/api/v3/ticker/price?symbol=PAXGUSDT"
 );
 
-const priceData = await priceRes.json();
+let d = await r.json();
 
-const gold = parseFloat(priceData.price);
+return parseFloat(d.price);
 
-document.getElementById("price").innerText =
-gold.toFixed(2);
+}
 
-const signal = document.getElementById("signal");
+async function getDepth(){
 
-if(position === null){
+let r = await fetch(
+"https://api.binance.com/api/v3/depth?symbol=PAXGUSDT&limit=50"
+);
+
+return await r.json();
+
+}
+
+async function botLoop(){
+
+if(!botRunning) return;
+
+try{
+
+let price = await getPrice();
+
+let depth = await getDepth();
+
+let bids = depth.bids;
+let asks = depth.asks;
+
+let bigBuy = bids.reduce((a,b)=>
+parseFloat(a[1]) > parseFloat(b[1]) ? a : b
+);
+
+let bigSell = asks.reduce((a,b)=>
+parseFloat(a[1]) > parseFloat(b[1]) ? a : b
+);
+
+let buyQty = parseFloat(bigBuy[1]);
+let sellQty = parseFloat(bigSell[1]);
+
+if(position==null){
 
 if(buyQty > sellQty){
 
-position = "BUY";
+position="BUY";
+entry=price;
 
-entry = gold;
-
-signal.innerHTML = "🟢 BUY";
-
-signal.className = "signal buy";
+document.getElementById("signal").innerHTML=
+"🟢 BUY<br>"+price;
 
 }
 
 else if(sellQty > buyQty){
 
-position = "SELL";
+position="SELL";
+entry=price;
 
-entry = gold;
-
-signal.innerHTML = "🔴 SELL";
-
-signal.className = "signal sell";
+document.getElementById("signal").innerHTML=
+"🔴 SELL<br>"+price;
 
 }
 
 }
 
-else if(position === "BUY"){
+else if(position=="BUY"){
 
-let floating = gold - entry;
+let floating = price-entry;
 
-if(floating >= TP){
+if(price >= entry+TP){
 
-totalProfit += floating;
-
+profit += floating;
 wins++;
 
-position = null;
+position=null;
+
+document.getElementById("signal").innerHTML=
+"💰 BUY TP";
 
 }
 
-else if(floating <= -SL){
+else if(price <= entry-SL){
 
-totalLoss += Math.abs(floating);
-
+loss += Math.abs(floating);
 losses++;
 
-position = null;
+position=null;
+
+document.getElementById("signal").innerHTML=
+"❌ BUY SL";
 
 }
 
 }
 
-else if(position === "SELL"){
+else if(position=="SELL"){
 
-let floating = entry - gold;
+let floating = entry-price;
 
-if(floating >= TP){
+if(price <= entry-TP){
 
-totalProfit += floating;
-
+profit += floating;
 wins++;
 
-position = null;
+position=null;
+
+document.getElementById("signal").innerHTML=
+"💰 SELL TP";
 
 }
 
-else if(floating <= -SL){
+else if(price >= entry+SL){
 
-totalLoss += Math.abs(floating);
-
+loss += Math.abs(floating);
 losses++;
 
-position = null;
+position=null;
+
+document.getElementById("signal").innerHTML=
+"❌ SELL SL";
 
 }
 
 }
 
-document.getElementById("profit").innerText =
-totalProfit.toFixed(2);
+document.getElementById("profit").innerHTML=
+profit.toFixed(2);
 
-document.getElementById("loss").innerText =
-totalLoss.toFixed(2);
+document.getElementById("loss").innerHTML=
+loss.toFixed(2);
 
-document.getElementById("wins").innerText =
+document.getElementById("wins").innerHTML=
 wins;
 
-document.getElementById("losses").innerText =
+document.getElementById("losses").innerHTML=
 losses;
 
 }catch(e){
@@ -236,9 +288,31 @@ console.log(e);
 
 }
 
+setTimeout(botLoop,2000);
+
 }
 
-setInterval(bot,2000);
+function startBot(){
+
+if(botRunning) return;
+
+botRunning=true;
+
+document.getElementById("signal").innerHTML=
+"🔥 BOT STARTED";
+
+botLoop();
+
+}
+
+function stopBot(){
+
+botRunning=false;
+
+document.getElementById("signal").innerHTML=
+"⛔ BOT STOPPED";
+
+}
 
 </script>
 
