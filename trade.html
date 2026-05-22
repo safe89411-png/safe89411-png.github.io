@@ -1,43 +1,36 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>بوت الذهب الحقيقي</title>
+<title>بوت الذهب</title>
 
 <script src="https://s3.tradingview.com/tv.js"></script>
 
 <style>
 
 body{
-margin:0;
-font-family:tahoma;
-background:#1733ff;
+background:#1828ff;
+font-family:sans-serif;
 color:white;
 text-align:center;
-}
-
-.title{
-font-size:40px;
-padding:20px;
-font-weight:bold;
+margin:0;
 }
 
 .box{
-background:#1e2b45;
+background:#1f2b45;
 margin:20px;
 padding:20px;
-border-radius:30px;
+border-radius:25px;
 }
 
 .signal{
-font-size:70px;
+font-size:55px;
 font-weight:bold;
-padding:25px;
-border-radius:25px;
 background:black;
+padding:30px;
+border-radius:25px;
 margin-bottom:20px;
 }
 
@@ -46,21 +39,17 @@ color:#00ff66;
 }
 
 .sell{
-color:red;
+color:#ff3b3b;
+}
+
+.hold{
+color:gold;
 }
 
 .stats{
-font-size:28px;
-line-height:50px;
-}
-
-#ad{
-background:white;
-color:black;
-padding:40px;
-margin:20px;
-border-radius:20px;
-font-size:35px;
+font-size:24px;
+margin-top:15px;
+line-height:45px;
 }
 
 </style>
@@ -68,57 +57,25 @@ font-size:35px;
 
 <body>
 
-<div class="title">
-🤖 بوت الذهب XAUUSD
-</div>
-
 <div class="box">
 
-<div id="signal" class="signal buy">
-BUY
+<h1>🤖 بوت الذهب الحقيقي</h1>
+
+<div id="signal" class="signal hold">
+HOLD
 </div>
 
 <div class="stats">
 
-<div>
-🥇 السعر :
-<span id="price">0</span>
-</div>
+<div>💰 الربح: <span id="profit">0</span>$</div>
 
-<div>
-📥 الدخول :
-<span id="entry">0</span>
-</div>
+<div>❌ الخسارة: <span id="loss">0</span>$</div>
 
-<div>
-🎯 TP :
-<span id="tp">0</span>
-</div>
+<div>✅ الصفقات الناجحة: <span id="wins">0</span></div>
 
-<div>
-🛑 SL :
-<span id="sl">0</span>
-</div>
+<div>❌ الصفقات الخاسرة: <span id="losses">0</span></div>
 
-<div>
-💰 الربح :
-<span id="profit">0</span>$
-</div>
-
-<div>
-❌ الخسارة :
-<span id="loss">0</span>$
-</div>
-
-<div>
-✅ الفوز :
-<span id="wins">0</span>
-</div>
-
-<div>
-❌ الخسائر :
-<span id="losses">0</span>
-</div>
+<div>📈 السعر الحالي: <span id="price">0</span></div>
 
 </div>
 
@@ -126,116 +83,62 @@ BUY
 
 <div id="tvchart"></div>
 
-<div id="ad">
-💵 مساحة إعلانية
-</div>
-
 <script>
 
 new TradingView.widget({
-"container_id":"tvchart",
-"width":"100%",
-"height":500,
-"symbol":"OANDA:XAUUSD",
-"interval":"5",
-"timezone":"Etc/UTC",
-"theme":"dark",
-"style":"1",
-"locale":"ar",
-"toolbar_bg":"#000000",
-"enable_publishing":false
+  "width":"100%",
+  "height":600,
+  "symbol":"OANDA:XAUUSD",
+  "interval":"5",
+  "timezone":"Asia/Baghdad",
+  "theme":"dark",
+  "style":"1",
+  "locale":"ar",
+  "container_id":"tvchart"
 });
 
 let position = null;
 let entry = 0;
 
-let TP = 0.5;
-let SL = 0.5;
-
-let profit = 0;
-let loss = 0;
+let totalProfit = 0;
+let totalLoss = 0;
 
 let wins = 0;
 let losses = 0;
 
-async function getGold(){
-
-try{
-
-let r =
-await fetch(
-"https://api.gold-api.com/price/XAU"
-);
-
-let d = await r.json();
-
-return parseFloat(d.price);
-
-}catch{
-
-return 3300;
-
-}
-
-}
-
-async function getBook(){
-
-try{
-
-let r =
-await fetch(
-"https://api.binance.com/api/v3/depth?symbol=PAXGUSDT&limit=50"
-);
-
-return await r.json();
-
-}catch{
-
-return null;
-
-}
-
-}
+const TP = 0.5;
+const SL = 0.5;
 
 async function bot(){
 
-let gold =
-await getGold();
+try{
 
-document.getElementById("price")
-.innerHTML = gold.toFixed(2);
-
-let book =
-await getBook();
-
-if(!book) return;
-
-let bids = book.bids;
-let asks = book.asks;
-
-let bigBuy =
-bids.reduce((a,b)=>
-parseFloat(a[1]) >
-parseFloat(b[1]) ? a : b
+const res = await fetch(
+"https://api.binance.com/api/v3/depth?symbol=PAXGUSDT&limit=50"
 );
 
-let bigSell =
-asks.reduce((a,b)=>
-parseFloat(a[1]) >
-parseFloat(b[1]) ? a : b
+const data = await res.json();
+
+const bids = data.bids;
+const asks = data.asks;
+
+const buyQty = parseFloat(bids[0][1]);
+const sellQty = parseFloat(asks[0][1]);
+
+const priceRes = await fetch(
+"https://api.binance.com/api/v3/ticker/price?symbol=PAXGUSDT"
 );
 
-let buyQty =
-parseFloat(bigBuy[1]);
+const priceData = await priceRes.json();
 
-let sellQty =
-parseFloat(bigSell[1]);
+const gold = parseFloat(priceData.price);
 
-let signal =
-document.getElementById("signal");
+document.getElementById("price").innerText =
+gold.toFixed(2);
 
-if(position == null){
+const signal = document.getElementById("signal");
+
+if(position === null){
 
 if(buyQty > sellQty){
 
@@ -243,59 +146,33 @@ position = "BUY";
 
 entry = gold;
 
-signal.innerHTML = "BUY 🟢";
+signal.innerHTML = "🟢 BUY";
 
-signal.className =
-"signal buy";
+signal.className = "signal buy";
 
-}else{
+}
+
+else if(sellQty > buyQty){
 
 position = "SELL";
 
 entry = gold;
 
-signal.innerHTML = "SELL 🔴";
+signal.innerHTML = "🔴 SELL";
 
-signal.className =
-"signal sell";
-
-}
-
-document.getElementById("entry")
-.innerHTML = entry.toFixed(2);
-
-if(position == "BUY"){
-
-document.getElementById("tp")
-.innerHTML =
-(entry + TP).toFixed(2);
-
-document.getElementById("sl")
-.innerHTML =
-(entry - SL).toFixed(2);
-
-}else{
-
-document.getElementById("tp")
-.innerHTML =
-(entry - TP).toFixed(2);
-
-document.getElementById("sl")
-.innerHTML =
-(entry + SL).toFixed(2);
+signal.className = "signal sell";
 
 }
 
-}else{
+}
 
-if(position == "BUY"){
+else if(position === "BUY"){
 
-let floating =
-gold - entry;
+let floating = gold - entry;
 
-if(gold >= entry + TP){
+if(floating >= TP){
 
-profit += floating;
+totalProfit += floating;
 
 wins++;
 
@@ -303,34 +180,9 @@ position = null;
 
 }
 
-if(gold <= entry - SL){
+else if(floating <= -SL){
 
-loss += Math.abs(floating);
-
-losses++;
-
-position = null;
-
-}
-
-}else{
-
-let floating =
-entry - gold;
-
-if(gold <= entry - TP){
-
-profit += floating;
-
-wins++;
-
-position = null;
-
-}
-
-if(gold >= entry + SL){
-
-loss += Math.abs(floating);
+totalLoss += Math.abs(floating);
 
 losses++;
 
@@ -340,23 +192,51 @@ position = null;
 
 }
 
-}
+else if(position === "SELL"){
 
-document.getElementById("profit")
-.innerHTML = profit.toFixed(2);
+let floating = entry - gold;
 
-document.getElementById("loss")
-.innerHTML = loss.toFixed(2);
+if(floating >= TP){
 
-document.getElementById("wins")
-.innerHTML = wins;
+totalProfit += floating;
 
-document.getElementById("losses")
-.innerHTML = losses;
+wins++;
+
+position = null;
 
 }
 
-bot();
+else if(floating <= -SL){
+
+totalLoss += Math.abs(floating);
+
+losses++;
+
+position = null;
+
+}
+
+}
+
+document.getElementById("profit").innerText =
+totalProfit.toFixed(2);
+
+document.getElementById("loss").innerText =
+totalLoss.toFixed(2);
+
+document.getElementById("wins").innerText =
+wins;
+
+document.getElementById("losses").innerText =
+losses;
+
+}catch(e){
+
+console.log(e);
+
+}
+
+}
 
 setInterval(bot,2000);
 
