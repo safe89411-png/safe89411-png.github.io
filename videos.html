@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+الفيديوهات
+</title>
+
+<style>
+
+body{
+margin:0;
+background:#0f172a;
+font-family:Arial;
+direction:rtl;
+color:white;
+}
+
+.top{
+background:#111827;
+padding:20px;
+font-size:40px;
+font-weight:bold;
+text-align:center;
+position:sticky;
+top:0;
+z-index:100;
+}
+
+.search{
+padding:15px;
+text-align:center;
+background:#111827;
+}
+
+.search input{
+width:85%;
+padding:18px;
+font-size:22px;
+border:none;
+border-radius:15px;
+}
+
+.search button{
+padding:15px 25px;
+font-size:22px;
+border:none;
+border-radius:15px;
+background:red;
+color:white;
+margin-top:10px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr;
+gap:20px;
+padding:20px;
+}
+
+.video{
+background:#1e293b;
+padding:15px;
+border-radius:20px;
+}
+
+iframe{
+width:100%;
+height:220px;
+border:none;
+border-radius:15px;
+}
+
+.title{
+font-size:24px;
+margin-top:10px;
+}
+
+.ad{
+background:#f59e0b;
+color:black;
+padding:20px;
+border-radius:20px;
+font-size:28px;
+font-weight:bold;
+text-align:center;
+margin-top:20px;
+}
+
+.shortBox{
+margin-top:30px;
+}
+
+.short{
+background:black;
+height:85vh;
+margin-top:25px;
+border-radius:20px;
+overflow:hidden;
+}
+
+.short iframe{
+width:100%;
+height:100%;
+}
+
+.shortTitle{
+padding:15px;
+font-size:26px;
+text-align:center;
+background:#111827;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="top">
+
+🎬 الفيديوهات + تانون
+
+</div>
+
+<div class="search">
+
+<input
+id="searchInput"
+placeholder="ابحث عن فيديو">
+
+<br>
+
+<button onclick="searchVideo()">
+
+بحث
+
+</button>
+
+</div>
+
+<div class="grid" id="videos">
+
+</div>
+
+<div class="ad">
+
+🔥 مساحة إعلانية 🔥
+
+</div>
+
+<div class="shortBox" id="shorts">
+
+</div>
+
+<div class="ad">
+
+📢 إعلان جديد داخل التطبيق
+
+</div>
+
+<script>
+
+const videos = [
+
+{
+title:"موسيقى",
+id:"dQw4w9WgXcQ"
+},
+
+{
+title:"4K فيديو",
+id:"aqz-KE-bpKQ"
+},
+
+{
+title:"الطبيعة",
+id:"6lt2JfJdGSY"
+},
+
+{
+title:"الفضاء",
+id:"GOAEIMx39-w"
+},
+
+{
+title:"ألعاب",
+id:"2g811Eo7K8U"
+},
+
+{
+title:"كرة القدم",
+id:"hY7m5jjJ9mM"
+},
+
+{
+title:"سيارات",
+id:"e-ORhEE9VVg"
+},
+
+{
+title:"أغاني",
+id:"ktvTqknDobU"
+},
+
+{
+title:"تكنولوجيا",
+id:"M7lc1UVf-VE"
+},
+
+{
+title:"يوتيوب",
+id:"jNQXAC9IVRw"
+}
+
+];
+
+function loadVideos(){
+
+let html = "";
+
+videos.forEach(v=>{
+
+html += `
+
+<div class="video">
+
+<iframe
+src="https://www.youtube.com/embed/${v.id}"
+allowfullscreen>
+</iframe>
+
+<div class="title">
+
+${v.title}
+
+</div>
+
+</div>
+
+`;
+
+});
+
+document.getElementById(
+"videos"
+).innerHTML = html;
+
+}
+
+function loadShorts(){
+
+let html = "";
+
+videos.forEach(v=>{
+
+html += `
+
+<div class="short">
+
+<iframe
+src="https://www.youtube.com/embed/${v.id}"
+allowfullscreen>
+</iframe>
+
+<div class="shortTitle">
+
+${v.title}
+
+</div>
+
+</div>
+
+`;
+
+});
+
+document.getElementById(
+"shorts"
+).innerHTML = html;
+
+}
+
+function searchVideo(){
+
+let q =
+document.getElementById(
+"searchInput"
+).value;
+
+if(q == ""){
+
+alert("اكتب شيء");
+
+return;
+
+}
+
+window.open(
+"https://www.youtube.com/results?search_query="
++ encodeURIComponent(q),
+"_blank"
+);
+
+}
+
+loadVideos();
+
+loadShorts();
+
+setInterval(()=>{
+
+videos.push({
+
+title:"فيديو جديد",
+
+id:"ysz5S6PUM-U"
+
+});
+
+loadVideos();
+
+},30000);
+
+</script>
+
+</body>
+
+</html>

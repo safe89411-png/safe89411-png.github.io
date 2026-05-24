@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بوت التداول</title>
+
+<style>
+
+body{
+margin:0;
+background:#0b1020;
+font-family:Arial;
+direction:rtl;
+color:white;
+text-align:center;
+}
+
+.top{
+background:#111827;
+padding:30px;
+font-size:42px;
+font-weight:bold;
+}
+
+.menu{
+background:#1d4ed8;
+padding:25px;
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.menu a{
+background:#2563eb;
+padding:18px 28px;
+border-radius:20px;
+color:white;
+text-decoration:none;
+font-size:26px;
+}
+
+.box{
+background:#1f2937;
+margin:20px;
+padding:25px;
+border-radius:25px;
+}
+
+.capital{
+font-size:60px;
+color:#00ff88;
+font-weight:bold;
+}
+
+.result{
+font-size:50px;
+font-weight:bold;
+color:gold;
+}
+
+button{
+padding:18px 35px;
+font-size:28px;
+border:none;
+border-radius:18px;
+margin:10px;
+color:white;
+cursor:pointer;
+}
+
+.start{
+background:#00aa55;
+}
+
+.stop{
+background:red;
+}
+
+.stats{
+font-size:30px;
+line-height:2;
+}
+
+input{
+width:90%;
+padding:18px;
+font-size:24px;
+margin-top:15px;
+border:none;
+border-radius:15px;
+}
+
+.withdraw{
+background:#f59e0b;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="top">
+🤖 بوت التداول الحقيقي
+</div>
+
+<div class="menu">
+
+<a href="index.html">الرئيسية</a>
+
+<a href="articles.html">المقالات</a>
+
+<a href="games.html">الألعاب</a>
+
+<a href="videos.html">الفيديوهات</a>
+
+</div>
+
+<div class="box">
+
+<h2>
+رأس المال
+</h2>
+
+<div class="capital" id="capital">
+750$
+</div>
+
+</div>
+
+<div class="box">
+
+<h2>
+النتيجة النهائية
+</h2>
+
+<div class="result" id="finalResult">
+0$
+</div>
+
+</div>
+
+<div class="box">
+
+<button class="start" onclick="startBot()">
+تشغيل البوت
+</button>
+
+<button class="stop" onclick="stopBot()">
+إيقاف البوت
+</button>
+
+</div>
+
+<div class="box stats">
+
+<div>
+💰 الأرباح:
+<span id="profit">0</span>$
+</div>
+
+<div>
+❌ الخسائر:
+<span id="loss">0</span>$
+</div>
+
+<div>
+📊 النتيجة:
+<span id="result">0</span>$
+</div>
+
+</div>
+
+<div class="box">
+
+<h2>
+السحب إلى Binance
+</h2>
+
+<input id="binanceid"
+placeholder="UID أو عنوان السحب">
+
+<input id="amount"
+placeholder="مبلغ السحب بالدولار">
+
+<button class="withdraw"
+onclick="withdrawMoney()">
+
+سحب الأرباح
+
+</button>
+
+</div>
+
+<script>
+
+let capital = 750;
+
+let profit = 0;
+
+let loss = 0;
+
+let result = 0;
+
+let running = false;
+
+let botInterval;
+
+function startBot(){
+
+if(running) return;
+
+running = true;
+
+botInterval = setInterval(()=>{
+
+let trade = Math.random();
+
+if(trade > 0.5){
+
+let p = Math.random()*20;
+
+profit += p;
+
+}else{
+
+let l = Math.random()*15;
+
+loss += l;
+
+}
+
+result = profit - loss;
+
+document.getElementById("profit").innerHTML =
+profit.toFixed(2);
+
+document.getElementById("loss").innerHTML =
+loss.toFixed(2);
+
+document.getElementById("result").innerHTML =
+result.toFixed(2);
+
+},3000);
+
+}
+
+function stopBot(){
+
+running = false;
+
+clearInterval(botInterval);
+
+let finalCapital = capital + result;
+
+document.getElementById("capital").innerHTML =
+finalCapital.toFixed(2) + "$";
+
+if(result >= 0){
+
+document.getElementById("finalResult").innerHTML =
+"+" + result.toFixed(2) + "$";
+
+}else{
+
+document.getElementById("finalResult").innerHTML =
+result.toFixed(2) + "$";
+
+}
+
+}
+
+function withdrawMoney(){
+
+let uid =
+document.getElementById("binanceid").value;
+
+let amount =
+document.getElementById("amount").value;
+
+if(uid == "" || amount == ""){
+
+alert("املأ الحقول");
+
+return;
+
+}
+
+alert(
+"✅ تم إرسال طلب السحب\n\n" +
+"📥 الحساب:\n" + uid +
+"\n\n💰 المبلغ:\n" + amount + "$"
+);
+
+}
+
+</script>
+
+</body>
+</html>
