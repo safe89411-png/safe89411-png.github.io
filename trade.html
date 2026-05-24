@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>بوت الذهب الحقيقي</title>
+
+<script src="https://s3.tradingview.com/tv.js"></script>
+
+<style>
+
+body{
+margin:0;
+background:#1d33ff;
+font-family:Arial;
+color:white;
+text-align:center;
+}
+
+.top{
+background:#08122e;
+padding:20px;
+font-size:40px;
+font-weight:bold;
+color:gold;
+}
+
+.menu{
+display:flex;
+overflow:auto;
+gap:10px;
+padding:15px;
+background:#111;
+}
+
+.menu a{
+background:#222;
+color:white;
+padding:12px 20px;
+border-radius:15px;
+text-decoration:none;
+font-size:20px;
+white-space:nowrap;
+}
+
+.box{
+background:#18223b;
+margin:20px;
+padding:20px;
+border-radius:30px;
+}
+
+button{
+padding:15px 30px;
+font-size:22px;
+border:none;
+border-radius:15px;
+margin:10px;
+color:white;
+}
+
+.start{
+background:#00b140;
+}
+
+.stop{
+background:red;
+}
+
+.signal{
+font-size:60px;
+font-weight:bold;
+margin-top:20px;
+}
+
+.buy{
+color:#00ff6a;
+}
+
+.sell{
+color:#ff4444;
+}
+
+.stats{
+font-size:24px;
+line-height:45px;
+margin-top:20px;
+}
+
+#tvchart{
+height:500px;
+margin-top:20px;
+border-radius:20px;
+overflow:hidden;
+}
+
+.tradeBox{
+background:black;
+padding:20px;
+border-radius:25px;
+margin-top:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="top">
+🔥 GOLD SIGNAL BOT 🔥
+</div>
+
+<div class="menu">
+
+<a href="index.html">🏠 الرئيسية</a>
+
+<a href="videos.html">🎬 فيديوهات</a>
+
+<a href="trade.html">📈 التداول</a>
+
+<a href="news.html">📰 الأخبار</a>
+
+<a href="ai.html">🤖 الذكاء</a>
+
+<a href="games.html">🎮 ألعاب</a>
+
+</div>
+
+<div class="box">
+
+<button class="start" onclick="startBot()">
+تشغيل البوت
+</button>
+
+<button class="stop" onclick="stopBot()">
+إيقاف البوت
+</button>
+
+<div class="tradeBox">
+
+<div id="signal" class="signal">
+BOT OFF
+</div>
+
+<div id="entry"></div>
+
+<div id="tp"></div>
+
+<div id="sl"></div>
+
+</div>
+
+<div class="stats">
+
+<div>
+💰 الربح:
+<span id="profit">0</span>$
+</div>
+
+<div>
+❌ الخسارة:
+<span id="loss">0</span>$
+</div>
+
+<div>
+✅ الفوز:
+<span id="wins">0</span>
+</div>
+
+<div>
+❌ الخسائر:
+<span id="losses">0</span>
+</div>
+
+</div>
+
+<div id="tvchart"></div>
+
+</div>
+
+<script>
+
+new TradingView.widget({
+"width":"100%",
+"height":500,
+"symbol":"OANDA:XAUUSD",
+"interval":"1",
+"timezone":"Asia/Baghdad",
+"theme":"dark",
+"style":"1",
+"locale":"ar",
+"toolbar_bg":"#000",
+"hide_side_toolbar":false,
+"allow_symbol_change":true,
+"container_id":"tvchart"
+});
+
+let botRunning=false;
+
+let position=null;
+
+let entryPrice=0;
+
+let totalProfit=0;
+let totalLoss=0;
+
+let wins=0;
+let losses=0;
+
+let TP=0.5;
+let SL=0.5;
+
+async function getPrice(){
+
+let r = await fetch(
+"https://api.binance.com/api/v3/ticker/price?symbol=PAXGUSDT"
+);
+
+let d = await r.json();
+
+return parseFloat(d.price);
+
+}
+
+async function getDepth(){
+
+let r = await fetch(
+"https://api.binance.com/api/v3/depth?symbol=PAXGUSDT&limit=50"
+);
+
+return await r.json();
+
+}
+
+async function botLoop(){
+
+if(!botRunning) return;
+
+try{
+
+let gold = await getPrice();
+
+let book = await getDepth();
+
+let bids = book.bids;
+let asks = book.asks;
+
+let bigBuy = bids.reduce((a,b)=>
+parseFloat(a[1]) > parseFloat(b[1]) ? a : b
+);
+
+let bigSell = asks.reduce((a,b)=>
+parseFloat(a[1]) > parseFloat(b[1]) ? a : b
+);
+
+let buyQty = parseFloat(bigBuy[1]);
+let sellQty = parseFloat(bigSell[1]);
+
+if(position==null){
+
+if(buyQty > sellQty){
+
+position="BUY";
+
+entryPrice=gold;
+
+document.getElementById("signal").innerHTML=
+"<div class='buy'>🟢 BUY</div>";
+
+document.getElementById("entry").innerHTML=
+"ENTRY : "+entryPrice;
+
+document.getElementById("tp").innerHTML=
+"TP : "+(entryPrice+TP).toFixed(2);
+
+document.getElementById("sl").innerHTML=
+"SL : "+(entryPrice-SL).toFixed(2);
+
+}
+
+else{
+
+position="SELL";
+
+entryPrice=gold;
+
+document.getElementById("signal").innerHTML=
+"<div class='sell'>🔴 SELL</div>";
+
+document.getElementById("entry").innerHTML=
+"ENTRY : "+entryPrice;
+
+document.getElementById("tp").innerHTML=
+"TP : "+(entryPrice-TP).toFixed(2);
+
+document.getElementById("sl").innerHTML=
+"SL : "+(entryPrice+SL).toFixed(2);
+
+}
+
+}
+
+else if(position=="BUY"){
+
+let floating = gold-entryPrice;
+
+if(gold >= entryPrice+TP){
+
+totalProfit += floating;
+
+wins++;
+
+position=null;
+
+document.getElementById("signal").innerHTML=
+"💰 BUY TP";
+
+}
+
+else if(gold <= entryPrice-SL){
+
+totalLoss += Math.abs(floating);
+
+losses++;
+
+position=null;
+
+document.getElementById("signal").innerHTML=
+"❌ BUY SL";
+
+}
+
+}
+
+else if(position=="SELL"){
+
+let floating = entryPrice-gold;
+
+if(gold <= entryPrice-TP){
+
+totalProfit += floating;
+
+wins++;
+
+position=null;
+
+document.getElementById("signal").innerHTML=
+"💰 SELL TP";
+
+}
+
+else if(gold >= entryPrice+SL){
+
+totalLoss += Math.abs(floating);
+
+losses++;
+
+position=null;
+
+document.getElementById("signal").innerHTML=
+"❌ SELL SL";
+
+}
+
+}
+
+document.getElementById("profit").innerHTML=
+totalProfit.toFixed(2);
+
+document.getElementById("loss").innerHTML=
+totalLoss.toFixed(2);
+
+document.getElementById("wins").innerHTML=
+wins;
+
+document.getElementById("losses").innerHTML=
+losses;
+
+}catch(e){
+
+console.log(e);
+
+}
+
+setTimeout(botLoop,2000);
+
+}
+
+function startBot(){
+
+if(botRunning) return;
+
+botRunning=true;
+
+botLoop();
+
+}
+
+function stopBot(){
+
+botRunning=false;
+
+document.getElementById("signal").innerHTML=
+"BOT STOPPED";
+
+}
+
+</script>
+
+</body>
+</html>
