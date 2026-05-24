@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Battle Royale</title>
+
+<script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.js"></script>
+
+<style>
+
+body{
+margin:0;
+overflow:hidden;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<script>
+
+const config = {
+
+type: Phaser.AUTO,
+
+width: window.innerWidth,
+
+height: window.innerHeight,
+
+physics:{
+default:'arcade',
+arcade:{
+debug:false
+}
+},
+
+scene:{
+preload,
+create,
+update
+}
+
+};
+
+const game = new Phaser.Game(config);
+
+let player;
+let enemies;
+let bullets;
+let cursors;
+
+function preload(){
+
+this.load.image(
+'player',
+'https://labs.phaser.io/assets/sprites/phaser-dude.png'
+);
+
+this.load.image(
+'enemy',
+'https://labs.phaser.io/assets/sprites/ufo.png'
+);
+
+this.load.image(
+'bullet',
+'https://labs.phaser.io/assets/sprites/bullets/bullet7.png'
+);
+
+this.load.image(
+'ground',
+'https://labs.phaser.io/assets/skies/space3.png'
+);
+
+}
+
+function create(){
+
+this.add.image(
+window.innerWidth/2,
+window.innerHeight/2,
+'ground'
+).setDisplaySize(
+window.innerWidth,
+window.innerHeight
+);
+
+player = this.physics.add.sprite(
+400,
+500,
+'player'
+);
+
+player.setCollideWorldBounds(true);
+
+cursors = this.input.keyboard.createCursorKeys();
+
+bullets = this.physics.add.group();
+
+enemies = this.physics.add.group();
+
+for(let i=0;i<6;i++){
+
+let enemy = enemies.create(
+
+Phaser.Math.Between(50,window.innerWidth-50),
+Phaser.Math.Between(50,300),
+'enemy'
+
+);
+
+enemy.setVelocity(
+Phaser.Math.Between(-100,100),
+Phaser.Math.Between(-100,100)
+);
+
+enemy.setBounce(1);
+enemy.setCollideWorldBounds(true);
+
+}
+
+this.input.on('pointerdown',()=>{
+
+let bullet = bullets.create(
+player.x,
+player.y,
+'bullet'
+);
+
+bullet.setVelocityY(-500);
+
+});
+
+this.physics.add.overlap(
+bullets,
+enemies,
+(bullet,enemy)=>{
+
+bullet.destroy();
+enemy.destroy();
+
+}
+);
+
+}
+
+function update(){
+
+player.setVelocity(0);
+
+if(cursors.left.isDown){
+
+player.setVelocityX(-250);
+
+}
+
+if(cursors.right.isDown){
+
+player.setVelocityX(250);
+
+}
+
+if(cursors.up.isDown){
+
+player.setVelocityY(-250);
+
+}
+
+if(cursors.down.isDown){
+
+player.setVelocityY(250);
+
+}
+
+}
+
+</script>
+
+</body>
+</html>

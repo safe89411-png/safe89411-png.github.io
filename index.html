@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GOLD SIGNAL</title>
+
+<style>
+body{
+    margin:0;
+    padding:0;
+    background:#0f172a;
+    font-family:Arial;
+    color:white;
+    text-align:center;
+}
+
+.top{
+    background:#111827;
+    padding:20px;
+    font-size:35px;
+    font-weight:bold;
+    color:gold;
+    box-shadow:0 0 20px #000;
+}
+
+.card{
+    background:#000;
+    width:90%;
+    margin:20px auto;
+    border-radius:30px;
+    padding:30px 10px;
+    box-shadow:0 0 20px rgba(0,0,0,0.5);
+}
+
+.signal{
+    font-size:70px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.buy{
+    color:#00ff66;
+}
+
+.sell{
+    color:#ff3333;
+}
+
+.hold{
+    color:gold;
+}
+
+.status{
+    font-size:40px;
+    margin-top:20px;
+}
+
+.chart{
+    width:90%;
+    margin:auto;
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:20px;
+}
+
+button{
+    width:85%;
+    padding:20px;
+    margin-top:25px;
+    border:none;
+    border-radius:20px;
+    background:#00c853;
+    color:white;
+    font-size:28px;
+    font-weight:bold;
+}
+
+.footer{
+    margin-top:30px;
+    color:#aaa;
+    font-size:18px;
+    padding-bottom:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="top">
+🔥 GOLD SIGNAL BOT 🔥
+</div>
+
+<div class="card">
+
+<div class="signal hold" id="signalText">
+HOLD
+</div>
+
+<div class="status" id="statusText">
+🟡 انتظار
+</div>
+
+</div>
+
+<div class="chart">
+<iframe 
+src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_12345&symbol=OANDA:XAUUSD&interval=1&hidesidetoolbar=1&theme=dark"
+width="100%"
+height="500"
+frameborder="0">
+</iframe>
+</div>
+
+<button onclick="changeSignal()">
+تحديث الإشارة
+</button>
+
+<div class="footer">
+SAFE GOLD AI SIGNAL
+</div>
+
+<script>
+
+function changeSignal(){
+
+let signals = [
+    {
+        text:"BUY",
+        class:"buy",
+        status:"🟢 شراء"
+    },
+
+    {
+        text:"SELL",
+        class:"sell",
+        status:"🔴 بيع"
+    },
+
+    {
+        text:"HOLD",
+        class:"hold",
+        status:"🟡 انتظار"
+    }
+];
+
+let random = signals[Math.floor(Math.random()*signals.length)];
+
+let signalText = document.getElementById("signalText");
+let statusText = document.getElementById("statusText");
+
+signalText.innerHTML = random.text;
+signalText.className = "signal " + random.class;
+
+statusText.innerHTML = random.status;
+
+}
+
+</script>
+
+</body>
+</html>
