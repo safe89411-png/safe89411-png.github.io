@@ -3,46 +3,299 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>الألعاب</title>
+
+<title>مدينة قديمة</title>
 
 <style>
+
 body{
-background:#000;
-color:white;
+margin:0;
+padding:0;
+background:#c9b37c;
 font-family:Arial;
 text-align:center;
 }
 
+header{
+background:#5a3e1b;
+color:white;
+padding:20px;
+font-size:35px;
+font-weight:bold;
+}
+
+.stats{
+display:flex;
+justify-content:center;
+gap:20px;
+padding:20px;
+flex-wrap:wrap;
+}
+
+.box{
+background:white;
+padding:15px 25px;
+border-radius:20px;
+font-size:24px;
+font-weight:bold;
+box-shadow:0 0 10px rgba(0,0,0,0.3);
+}
+
 .game{
-background:#111;
-margin:20px;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
+padding:20px;
+}
+
+.build{
+background:white;
 padding:20px;
 border-radius:20px;
+box-shadow:0 0 10px rgba(0,0,0,0.3);
+}
+
+.build img{
+width:100%;
+height:120px;
+object-fit:cover;
+border-radius:15px;
 }
 
 button{
-padding:15px 30px;
-font-size:25px;
-background:#00ff99;
+background:#5a3e1b;
+color:white;
 border:none;
+padding:12px 25px;
+font-size:20px;
 border-radius:15px;
+margin-top:10px;
+cursor:pointer;
 }
-</style>
 
+button:hover{
+background:#7a5529;
+}
+
+.city{
+margin:20px;
+padding:20px;
+background:#eee;
+border-radius:20px;
+min-height:200px;
+font-size:22px;
+}
+
+</style>
 </head>
 
 <body>
 
-<h1>🎮 قسم الألعاب</h1>
+<header>
+🏰 لعبة بناء المدينة القديمة
+</header>
 
-<div class="game">
-<h2>لعبة XO</h2>
+<div class="stats">
 
-<a href="https://poki.com">
-<button>تشغيل</button>
-</a>
+<div class="box">
+💰 الذهب:
+<span id="gold">500</span>
+</div>
+
+<div class="box">
+👥 السكان:
+<span id="people">0</span>
+</div>
+
+<div class="box">
+🛡️ الجيش:
+<span id="army">0</span>
+</div>
+
+<div class="box">
+👮 الشرطة:
+<span id="police">0</span>
+</div>
 
 </div>
+
+<div class="game">
+
+<div class="build">
+<img src="https://cdn-icons-png.flaticon.com/512/619/619153.png">
+
+<h2>🏠 بيت</h2>
+
+<p>السعر: 100</p>
+
+<button onclick="buildHouse()">
+بناء
+</button>
+
+</div>
+
+<div class="build">
+<img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png">
+
+<h2>🏪 محل</h2>
+
+<p>السعر: 150</p>
+
+<button onclick="buildShop()">
+بناء
+</button>
+
+</div>
+
+<div class="build">
+<img src="https://cdn-icons-png.flaticon.com/512/4320/4320337.png">
+
+<h2>👮 مركز شرطة</h2>
+
+<p>السعر: 200</p>
+
+<button onclick="buildPolice()">
+بناء
+</button>
+
+</div>
+
+<div class="build">
+<img src="https://cdn-icons-png.flaticon.com/512/484/484167.png">
+
+<h2>🛡️ معسكر جيش</h2>
+
+<p>السعر: 300</p>
+
+<button onclick="buildArmy()">
+بناء
+</button>
+
+</div>
+
+</div>
+
+<div class="city" id="city">
+
+🏜️ المدينة فارغة
+
+</div>
+
+<script>
+
+let gold = 500;
+
+let people = 0;
+
+let army = 0;
+
+let police = 0;
+
+function update(){
+
+document.getElementById("gold").innerHTML = gold;
+
+document.getElementById("people").innerHTML = people;
+
+document.getElementById("army").innerHTML = army;
+
+document.getElementById("police").innerHTML = police;
+
+}
+
+function buildHouse(){
+
+if(gold < 100){
+
+alert("❌ الذهب غير كافي");
+
+return;
+
+}
+
+gold -= 100;
+
+people += 5;
+
+update();
+
+document.getElementById("city").innerHTML +=
+"<br>🏠 تم بناء بيت";
+
+}
+
+function buildShop(){
+
+if(gold < 150){
+
+alert("❌ الذهب غير كافي");
+
+return;
+
+}
+
+gold -= 150;
+
+gold += 50;
+
+update();
+
+document.getElementById("city").innerHTML +=
+"<br>🏪 تم بناء محل";
+
+}
+
+function buildPolice(){
+
+if(gold < 200){
+
+alert("❌ الذهب غير كافي");
+
+return;
+
+}
+
+gold -= 200;
+
+police += 10;
+
+update();
+
+document.getElementById("city").innerHTML +=
+"<br>👮 تم بناء مركز شرطة";
+
+}
+
+function buildArmy(){
+
+if(gold < 300){
+
+alert("❌ الذهب غير كافي");
+
+return;
+
+}
+
+gold -= 300;
+
+army += 20;
+
+update();
+
+document.getElementById("city").innerHTML +=
+"<br>🛡️ تم بناء معسكر جيش";
+
+}
+
+setInterval(function(){
+
+gold += 10;
+
+update();
+
+},5000);
+
+</script>
 
 </body>
 </html>
