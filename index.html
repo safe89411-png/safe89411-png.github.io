@@ -3,160 +3,117 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GOLD SIGNAL</title>
+<title>MG APP</title>
+
+<!-- اعلان Google AdMob -->
+<script async
+src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4256140548103424"
+crossorigin="anonymous"></script>
 
 <style>
 body{
     margin:0;
-    padding:0;
-    background:#0f172a;
     font-family:Arial;
+    background:#111;
     color:white;
     text-align:center;
 }
 
-.top{
-    background:#111827;
+header{
+    background:#1e1e1e;
     padding:20px;
-    font-size:35px;
+    font-size:28px;
     font-weight:bold;
-    color:gold;
-    box-shadow:0 0 20px #000;
+    color:#00ff99;
 }
 
-.card{
-    background:#000;
-    width:90%;
-    margin:20px auto;
-    border-radius:30px;
-    padding:30px 10px;
-    box-shadow:0 0 20px rgba(0,0,0,0.5);
+.container{
+    padding:20px;
 }
 
-.signal{
-    font-size:70px;
-    font-weight:bold;
-    margin-top:10px;
-}
-
-.buy{
-    color:#00ff66;
-}
-
-.sell{
-    color:#ff3333;
-}
-
-.hold{
-    color:gold;
-}
-
-.status{
-    font-size:40px;
-    margin-top:20px;
-}
-
-.chart{
-    width:90%;
-    margin:auto;
-    border-radius:20px;
-    overflow:hidden;
-    margin-top:20px;
+.box{
+    background:#222;
+    margin:15px;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 0 10px #000;
 }
 
 button{
-    width:85%;
-    padding:20px;
-    margin-top:25px;
+    background:#00ff99;
     border:none;
-    border-radius:20px;
-    background:#00c853;
-    color:white;
-    font-size:28px;
-    font-weight:bold;
+    padding:15px 25px;
+    border-radius:10px;
+    font-size:18px;
+    cursor:pointer;
+    margin-top:10px;
 }
 
-.footer{
+button:hover{
+    background:#00cc77;
+}
+
+footer{
     margin-top:30px;
-    color:#aaa;
-    font-size:18px;
-    padding-bottom:20px;
+    padding:20px;
+    background:#1e1e1e;
 }
 </style>
 </head>
 
 <body>
 
-<div class="top">
-🔥 GOLD SIGNAL BOT 🔥
+<header>
+🔥 MG APP 🔥
+</header>
+
+<div class="container">
+
+<div class="box">
+<h2>🎮 الألعاب</h2>
+<p>أفضل الألعاب الممتعة أونلاين</p>
+<button>دخول</button>
 </div>
 
-<div class="card">
-
-<div class="signal hold" id="signalText">
-HOLD
+<div class="box">
+<h2>🤖 الذكاء الاصطناعي</h2>
+<p>قسم أدوات الذكاء الاصطناعي</p>
+<button>دخول</button>
 </div>
 
-<div class="status" id="statusText">
-🟡 انتظار
+<div class="box">
+<h2>📰 الأخبار</h2>
+<p>آخر الأخبار العالمية</p>
+<button>دخول</button>
 </div>
 
+<div class="box">
+<h2>💹 التداول</h2>
+<p>تعلم التداول والعملات</p>
+<button>دخول</button>
 </div>
 
-<div class="chart">
-<iframe 
-src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_12345&symbol=OANDA:XAUUSD&interval=1&hidesidetoolbar=1&theme=dark"
-width="100%"
-height="500"
-frameborder="0">
-</iframe>
-</div>
+<!-- اعلان -->
+<div class="box">
 
-<button onclick="changeSignal()">
-تحديث الإشارة
-</button>
-
-<div class="footer">
-SAFE GOLD AI SIGNAL
-</div>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4256140548103424"
+     data-ad-slot="9946923186"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
 
 <script>
-
-function changeSignal(){
-
-let signals = [
-    {
-        text:"BUY",
-        class:"buy",
-        status:"🟢 شراء"
-    },
-
-    {
-        text:"SELL",
-        class:"sell",
-        status:"🔴 بيع"
-    },
-
-    {
-        text:"HOLD",
-        class:"hold",
-        status:"🟡 انتظار"
-    }
-];
-
-let random = signals[Math.floor(Math.random()*signals.length)];
-
-let signalText = document.getElementById("signalText");
-let statusText = document.getElementById("statusText");
-
-signalText.innerHTML = random.text;
-signalText.className = "signal " + random.class;
-
-statusText.innerHTML = random.status;
-
-}
-
+     (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+</div>
+
+</div>
+
+<footer>
+جميع الحقوق محفوظة © MG APP
+</footer>
 
 </body>
 </html>
