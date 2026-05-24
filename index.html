@@ -12,53 +12,49 @@ crossorigin="anonymous"></script>
 <style>
 
 body{
-margin:0;
 background:#050816;
 font-family:Arial;
 color:white;
+margin:0;
+padding:0;
 text-align:center;
 }
 
 header{
 background:#111827;
-padding:20px;
+padding:25px;
 font-size:35px;
 font-weight:bold;
 box-shadow:0 0 20px #00ff99;
 }
 
-.container{
+.points{
+background:#00ff99;
+color:black;
+font-size:30px;
 padding:20px;
+margin:20px;
+border-radius:20px;
+font-weight:bold;
 }
 
 .card{
 background:#111827;
-margin:25px 10px;
-padding:30px;
+margin:20px;
+padding:25px;
 border-radius:25px;
 box-shadow:0 0 20px rgba(0,255,150,0.2);
 }
 
-.card h2{
-font-size:38px;
-margin-bottom:15px;
-}
-
-.card p{
-font-size:22px;
-color:#ccc;
-}
-
 button{
 background:#00ff99;
-color:black;
 border:none;
-padding:18px 45px;
-font-size:28px;
+padding:18px 40px;
+font-size:24px;
 border-radius:20px;
 margin-top:20px;
-cursor:pointer;
 font-weight:bold;
+cursor:pointer;
 }
 
 button:hover{
@@ -66,10 +62,10 @@ background:#00cc77;
 }
 
 .ads{
-margin:25px 10px;
-padding:20px;
-background:#111827;
-border-radius:25px;
+margin-top:20px;
+padding:15px;
+background:#000;
+border-radius:20px;
 }
 
 footer{
@@ -88,7 +84,35 @@ font-size:20px;
 🔥 MG APP 🔥
 </header>
 
-<div class="container">
+<div class="points">
+💰 النقاط: <span id="points">0</span>
+</div>
+
+<script>
+
+let points = 0;
+
+function watchAd(){
+
+points += 5;
+
+document.getElementById("points").innerHTML = points;
+
+alert("✅ تمت إضافة 5 نقاط");
+
+}
+
+</script>
+
+<div class="card">
+
+<h2>🎁 شاهد إعلان واربح</h2>
+
+<p>كل إعلان يعطيك 5 نقاط</p>
+
+<button onclick="watchAd()">
+📺 مشاهدة إعلان
+</button>
 
 <div class="ads">
 
@@ -105,56 +129,126 @@ data-full-width-responsive="true"></ins>
 
 </div>
 
+</div>
+
 <div class="card">
 <h2>🎮 الألعاب</h2>
-<p>قسم الألعاب الأونلاين</p>
-
 <a href="games.html">
 <button>دخول</button>
 </a>
-
 </div>
 
 <div class="card">
 <h2>🤖 الذكاء الاصطناعي</h2>
-<p>أفضل أدوات الذكاء الاصطناعي</p>
-
 <a href="ai.html">
 <button>دخول</button>
 </a>
-
 </div>
 
 <div class="card">
-<h2>💹 بوت التداول</h2>
-<p>إشارات وتداول وعملات</p>
-
+<h2>💹 التداول</h2>
 <a href="trade.html">
 <button>دخول</button>
 </a>
-
 </div>
 
 <div class="card">
 <h2>🎬 الفيديوهات</h2>
-<p>فيديوهات يوتيوب وتيك توك</p>
-
 <a href="videos.html">
 <button>دخول</button>
 </a>
-
 </div>
 
-<div class="card">
-<h2>🔐 تسجيل الدخول</h2>
-<p>تسجيل دخول للتطبيق</p>
+<!-- 10 ADS -->
 
-<a href="login.html">
-<button>دخول</button>
-</a>
-
+<div class="ads">
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-4256140548103424"
+data-ad-slot="9946923186"
+data-ad-format="auto"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 </div>
 
+<div class="ads">
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-4256140548103424"
+data-ad-slot="9946923186"
+data-ad-format="auto"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div class="ads">
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-4256140548103424"
+data-ad-slot="9946923186"
+data-ad-format="auto"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div class="ads">
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-4256140548103424"
+data-ad-slot="9946923186"
+data-ad-format="auto"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div class="ads">
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-4256140548103424"
+data-ad-slot="9946923186"
+data-ad-format="auto"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div class="ads">
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-4256140548103424"
+data-ad-slot="9946923186"
+data-ad-format="auto"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div class="ads">
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-4256140548103424"
+data-ad-slot="9946923186"
+data-ad-format="auto"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div class="ads">
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-4256140548103424"
+data-ad-slot="9946923186"
+data-ad-format="auto"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div class="ads">
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-4256140548103424"
+data-ad-slot="9946923186"
+data-ad-format="auto"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div class="ads">
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-4256140548103424"
+data-ad-slot="9946923186"
+data-ad-format="auto"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 </div>
 
 <footer>
