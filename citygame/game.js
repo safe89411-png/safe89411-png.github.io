@@ -2,99 +2,98 @@ const config = {
 type: Phaser.AUTO,
 width: window.innerWidth,
 height: window.innerHeight,
+backgroundColor: '#7ec850',
+
 parent: 'game',
 
-scene: {
-preload: preload,
-create: create,
-update: update
+scene:{
+create:create
 }
 };
 
-const game = new Phaser.Game(config);
+new Phaser.Game(config);
 
-let money = 500;
-
-function preload(){
-
-this.load.image(
-'ground',
-'https://labs.phaser.io/assets/tilemaps/tiles/gridtiles.png'
-);
-
-this.load.image(
-'house',
-'https://labs.phaser.io/assets/sprites/block.png'
-);
-
-}
+let gold = 1000;
+let tileSize = 64;
 
 function create(){
 
-this.add.text(20,20,
-'💰 الذهب: ' + money,
-{
-fontSize:'30px',
-color:'#ffffff'
-}
-).setScrollFactor(0).setName('moneyText');
+const mapSize = 30;
 
-for(let x=0; x<20; x++){
+for(let y=0;y<mapSize;y++){
 
-for(let y=0; y<20; y++){
+for(let x=0;x<mapSize;x++){
 
-this.add.image(
-x*64,
-y*64,
-'ground'
+let tile = this.add.rectangle(
+x*tileSize,
+y*tileSize,
+tileSize-2,
+tileSize-2,
+0x6dbf4b
+);
+
+tile.setOrigin(0);
+
+tile.setStrokeStyle(1,0x000000);
+
+tile.setInteractive();
+
+tile.on('pointerdown',()=>{
+
+if(gold >= 100){
+
+gold -= 100;
+
+this.add.rectangle(
+x*tileSize+8,
+y*tileSize+8,
+48,
+48,
+0xc58b45
 ).setOrigin(0);
 
-}
-
-}
-
-this.input.on('pointerdown', (pointer)=>{
-
-if(money >= 100){
-
-money -= 100;
-
-this.add.image(
-pointer.worldX,
-pointer.worldY,
-'house'
-).setDisplaySize(60,60);
-
-this.children.getByName('moneyText')
-.setText('💰 الذهب: ' + money);
+goldText.setText("💰 "+gold);
 
 }
 
 });
+
+}
+
+}
+
+let goldText = this.add.text(
+20,
+20,
+"💰 "+gold,
+{
+fontSize:'32px',
+color:'#ffffff',
+backgroundColor:'#000'
+}
+);
+
+goldText.setScrollFactor(0);
 
 this.cameras.main.setBounds(
 0,
 0,
-2000,
-2000
+mapSize*tileSize,
+mapSize*tileSize
 );
 
-this.input.keyboard.on('keydown-W', ()=>{
-this.cameras.main.scrollY -= 50;
-});
+this.input.on('pointermove',(pointer)=>{
 
-this.input.keyboard.on('keydown-S', ()=>{
-this.cameras.main.scrollY += 50;
-});
+if(pointer.isDown){
 
-this.input.keyboard.on('keydown-A', ()=>{
-this.cameras.main.scrollX -= 50;
-});
+this.cameras.main.scrollX -=
+(pointer.x - pointer.prevPosition.x);
 
-this.input.keyboard.on('keydown-D', ()=>{
-this.cameras.main.scrollX += 50;
-});
+this.cameras.main.scrollY -=
+(pointer.y - pointer.prevPosition.y);
 
 }
 
-function update(){}
+});
+
+}
