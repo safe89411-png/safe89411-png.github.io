@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>مدينة 3D</title>
+<title>مدينة MG 3D</title>
 
 <script src="https://cdn.babylonjs.com/babylon.js"></script>
 
@@ -15,7 +15,7 @@ width:100%;
 height:100%;
 margin:0;
 overflow:hidden;
-background:#000;
+font-family:Arial;
 }
 
 #renderCanvas{
@@ -29,45 +29,57 @@ display:block;
 position:absolute;
 top:10px;
 left:10px;
-z-index:10;
-background:rgba(0,0,0,0.6);
-padding:10px;
-border-radius:15px;
+z-index:100;
+background:rgba(0,0,0,0.7);
+padding:15px;
+border-radius:20px;
 color:white;
-font-size:20px;
-font-family:Arial;
 }
 
 button{
-padding:10px;
+padding:10px 15px;
+margin:5px;
 border:none;
 border-radius:10px;
-margin-top:5px;
-font-size:18px;
 background:#00cc66;
 color:white;
+font-size:18px;
+}
+
+button:hover{
+background:#00994d;
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div id="ui">
 
-💰 الذهب:
-<span id="gold">1000</span>
+<h2>🏗 بناء المدينة</h2>
 
-<br>
-
-🏠 المنازل:
-<span id="houses">0</span>
-
-<br>
-
-<button onclick="buildHouse()">
-بناء منزل
+<button onclick="setBuild('house')">
+🏠 منزل
 </button>
+
+<button onclick="setBuild('tower')">
+🏢 برج
+</button>
+
+<button onclick="setBuild('tree')">
+🌳 شجرة
+</button>
+
+<button onclick="setBuild('road')">
+🛣 طريق
+</button>
+
+<br><br>
+
+💰 الذهب:
+<span id="gold">5000</span>
 
 </div>
 
@@ -75,14 +87,8 @@ color:white;
 
 <script>
 
-let gold = 1000;
-let houses = 0;
-
-const goldText =
-document.getElementById("gold");
-
-const housesText =
-document.getElementById("houses");
+let buildType = "house";
+let gold = 5000;
 
 const canvas =
 document.getElementById("renderCanvas");
@@ -101,7 +107,7 @@ new BABYLON.ArcRotateCamera(
 "camera",
 Math.PI/2,
 1.2,
-180,
+200,
 new BABYLON.Vector3(0,0,0),
 scene
 );
@@ -119,8 +125,8 @@ const ground =
 BABYLON.MeshBuilder.CreateGround(
 "ground",
 {
-width:400,
-height:400
+width:500,
+height:500
 },
 scene
 );
@@ -136,48 +142,142 @@ new BABYLON.Color3(0.3,0.7,0.3);
 
 ground.material = groundMat;
 
-function createRoad(x,z,w,h){
+function setBuild(type){
 
-let road =
-BABYLON.MeshBuilder.CreateGround(
-"road",
+buildType = type;
+
+}
+
+function updateGold(){
+
+document.getElementById("gold")
+.innerText = gold;
+
+localStorage.setItem(
+"gold",
+gold
+);
+
+}
+
+if(localStorage.getItem("gold")){
+
+gold =
+parseInt(
+localStorage.getItem("gold")
+);
+
+updateGold();
+
+}
+
+canvas.addEventListener(
+"click",
+function(){
+
+let pick =
+scene.pick(
+scene.pointerX,
+scene.pointerY
+);
+
+if(pick.hit){
+
+let pos = pick.pickedPoint;
+
+let x =
+Math.round(pos.x/10)*10;
+
+let z =
+Math.round(pos.z/10)*10;
+
+if(buildType=="house"){
+
+if(gold<100)return;
+
+gold-=100;
+
+let house =
+BABYLON.MeshBuilder.CreateBox(
+"house",
 {
-width:w,
-height:h
+width:10,
+depth:10,
+height:10
 },
 scene
 );
 
-road.position.x = x;
-road.position.z = z;
-road.position.y = 0.02;
+house.position =
+new BABYLON.Vector3(
+x,
+5,
+z
+);
 
-let roadMat =
+let mat =
 new BABYLON.StandardMaterial(
-"roadMat",
+"mat",
 scene
 );
 
-roadMat.diffuseColor =
-new BABYLON.Color3(0.2,0.2,0.2);
+mat.diffuseColor =
+new BABYLON.Color3(
+0.8,
+0.5,
+0.3
+);
 
-road.material = roadMat;
-
-}
-
-for(let i=-150;i<=150;i+=40){
-
-createRoad(i,0,10,400);
+house.material = mat;
 
 }
 
-for(let i=-150;i<=150;i+=40){
+if(buildType=="tower"){
 
-createRoad(0,i,400,10);
+if(gold<300)return;
+
+gold-=300;
+
+let tower =
+BABYLON.MeshBuilder.CreateBox(
+"tower",
+{
+width:12,
+depth:12,
+height:35
+},
+scene
+);
+
+tower.position =
+new BABYLON.Vector3(
+x,
+17,
+z
+);
+
+let mat =
+new BABYLON.StandardMaterial(
+"mat",
+scene
+);
+
+mat.diffuseColor =
+new BABYLON.Color3(
+0.5,
+0.5,
+1
+);
+
+tower.material = mat;
 
 }
 
-function createTree(x,z){
+if(buildType=="tree"){
+
+if(gold<20)return;
+
+gold-=20;
 
 let trunk =
 BABYLON.MeshBuilder.CreateCylinder(
@@ -189,9 +289,12 @@ height:5
 scene
 );
 
-trunk.position.x = x;
-trunk.position.z = z;
-trunk.position.y = 2;
+trunk.position =
+new BABYLON.Vector3(
+x,
+2,
+z
+);
 
 let top =
 BABYLON.MeshBuilder.CreateSphere(
@@ -202,9 +305,12 @@ diameter:5
 scene
 );
 
-top.position.x = x;
-top.position.z = z;
-top.position.y = 6;
+top.position =
+new BABYLON.Vector3(
+x,
+6,
+z
+);
 
 let topMat =
 new BABYLON.StandardMaterial(
@@ -213,71 +319,61 @@ scene
 );
 
 topMat.diffuseColor =
-new BABYLON.Color3(0,0.8,0);
+new BABYLON.Color3(
+0,
+0.8,
+0
+);
 
 top.material = topMat;
 
 }
 
-for(let i=0;i<100;i++){
+if(buildType=="road"){
 
-createTree(
-Math.random()*350-175,
-Math.random()*350-175
-);
+if(gold<10)return;
 
-}
+gold-=10;
 
-function createBuilding(x,z){
-
-let height =
-Math.random()*30+10;
-
-let building =
-BABYLON.MeshBuilder.CreateBox(
-"building",
+let road =
+BABYLON.MeshBuilder.CreateGround(
+"road",
 {
-width:12,
-depth:12,
-height:height
+width:10,
+height:10
 },
 scene
 );
 
-building.position.x = x;
-building.position.z = z;
-building.position.y = height/2;
+road.position =
+new BABYLON.Vector3(
+x,
+0.02,
+z
+);
 
-let mat =
+let roadMat =
 new BABYLON.StandardMaterial(
-"mat",
+"roadMat",
 scene
 );
 
-mat.diffuseColor =
+roadMat.diffuseColor =
 new BABYLON.Color3(
-Math.random(),
-Math.random(),
-Math.random()
+0.2,
+0.2,
+0.2
 );
 
-building.material = mat;
+road.material = roadMat;
 
 }
 
-for(let x=-120;x<=120;x+=25){
-
-for(let z=-120;z<=120;z+=25){
-
-if(Math.random()>0.4){
-
-createBuilding(x,z);
+updateGold();
 
 }
 
-}
-
-}
+});
 
 let cars = [];
 
@@ -302,26 +398,26 @@ Math.random()*300-150;
 car.position.z =
 Math.random()*300-150;
 
-let carMat =
+let mat =
 new BABYLON.StandardMaterial(
-"carMat",
+"mat",
 scene
 );
 
-carMat.diffuseColor =
+mat.diffuseColor =
 new BABYLON.Color3(
 Math.random(),
 Math.random(),
 Math.random()
 );
 
-car.material = carMat;
+car.material = mat;
 
 cars.push(car);
 
 }
 
-for(let i=0;i<10;i++){
+for(let i=0;i<15;i++){
 
 createCar();
 
@@ -331,107 +427,17 @@ scene.registerBeforeRender(function(){
 
 cars.forEach(car=>{
 
-car.position.x += 0.2;
+car.position.x += 0.3;
 
-if(car.position.x > 180){
+if(car.position.x>250){
 
-car.position.x = -180;
+car.position.x=-250;
 
 }
 
 });
 
 });
-
-function buildHouse(){
-
-if(gold < 100){
-
-alert("لا يوجد ذهب");
-
-return;
-
-}
-
-gold -= 100;
-
-houses++;
-
-goldText.innerText = gold;
-
-housesText.innerText = houses;
-
-let x =
-Math.random()*200-100;
-
-let z =
-Math.random()*200-100;
-
-let house =
-BABYLON.MeshBuilder.CreateBox(
-"house",
-{
-width:10,
-depth:10,
-height:10
-},
-scene
-);
-
-house.position.x = x;
-
-house.position.z = z;
-
-house.position.y = 5;
-
-let mat =
-new BABYLON.StandardMaterial(
-"mat",
-scene
-);
-
-mat.diffuseColor =
-new BABYLON.Color3(
-0.8,
-0.5,
-0.3
-);
-
-house.material = mat;
-
-localStorage.setItem(
-"gold",
-gold
-);
-
-localStorage.setItem(
-"houses",
-houses
-);
-
-}
-
-if(localStorage.getItem("gold")){
-
-gold =
-parseInt(
-localStorage.getItem("gold")
-);
-
-goldText.innerText = gold;
-
-}
-
-if(localStorage.getItem("houses")){
-
-houses =
-parseInt(
-localStorage.getItem("houses")
-);
-
-housesText.innerText = houses;
-
-}
 
 engine.runRenderLoop(function(){
 
