@@ -4,9 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MG APP</title>
+<title>MG APP EARN</title>
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4256140548103424"
+<!-- Google AdMob -->
+<script async
+src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4256140548103424"
 crossorigin="anonymous"></script>
 
 <style>
@@ -28,8 +30,18 @@ font-weight:bold;
 box-shadow:0 0 20px #00ff99;
 }
 
-.container{
+.balance{
+background:#00ff99;
+color:black;
+margin:20px;
 padding:20px;
+font-size:30px;
+font-weight:bold;
+border-radius:20px;
+}
+
+.container{
+padding:15px;
 }
 
 .card{
@@ -41,7 +53,7 @@ box-shadow:0 0 20px rgba(0,255,150,0.2);
 }
 
 .card h2{
-font-size:35px;
+font-size:32px;
 }
 
 .card p{
@@ -55,8 +67,8 @@ border:none;
 padding:18px 40px;
 font-size:24px;
 border-radius:20px;
-cursor:pointer;
 font-weight:bold;
+cursor:pointer;
 margin-top:15px;
 }
 
@@ -66,13 +78,18 @@ background:#00cc77;
 
 .ads{
 margin-top:20px;
-padding:15px;
+padding:10px;
 background:#000;
 border-radius:20px;
 }
 
+.vip{
+background:gold;
+color:black;
+}
+
 footer{
-margin-top:40px;
+margin-top:50px;
 padding:20px;
 background:#111827;
 font-size:20px;
@@ -84,78 +101,141 @@ font-size:20px;
 <body>
 
 <header>
-🔥 MG APP 🔥
+💰 MG APP EARN
 </header>
+
+<div class="balance">
+رصيدك: <span id="money">0</span> نقطة
+</div>
+
+<script>
+
+let money = 0;
+
+function reward(points){
+
+money += points;
+
+document.getElementById("money").innerHTML = money;
+
+alert("✅ ربحت " + points + " نقطة");
+
+}
+
+</script>
 
 <div class="container">
 
-<div class="card">
-<h2>💹 التداول الافتراضي</h2>
-
-<p>
-افتح صفقات BUY / SELL
-وتابع الربح والخسارة
-</p>
-
-<a href="trade.html">
-<button>
-دخول التداول
-</button>
-</a>
-
-</div>
+<!-- مشاهدة إعلان -->
 
 <div class="card">
-<h2>🎮 الألعاب</h2>
 
-<p>
-أفضل الألعاب داخل التطبيق
-</p>
+<h2>📺 مشاهدة إعلان</h2>
 
-<a href="games.html">
-<button>
-دخول الألعاب
+<p>شاهد إعلان واربح 5 نقاط</p>
+
+<button onclick="reward(5)">
+مشاهدة إعلان
 </button>
-</a>
-
-</div>
-
-<div class="card">
-<h2>🤖 الذكاء الاصطناعي</h2>
-
-<p>
-أدوات الذكاء الاصطناعي
-</p>
-
-<a href="ai.html">
-<button>
-دخول AI
-</button>
-</a>
-
-</div>
-
-<div class="card">
-<h2>🎥 الفيديوهات</h2>
-
-<p>
-مشاهدة الفيديوهات
-</p>
-
-<a href="videos.html">
-<button>
-دخول الفيديوهات
-</button>
-</a>
-
-</div>
 
 <div class="ads">
 
 <ins class="adsbygoogle"
 style="display:block"
 data-ad-client="ca-pub-4256140548103424"
-data-ad-slot="9946923186"
+data-ad-slot="6882911617"
+data-ad-format="auto"
+data-full-width-responsive="true"></ins>
+
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+</div>
+
+<!-- الألعاب -->
+
+<div class="card">
+
+<h2>🎮 الألعاب</h2>
+
+<p>قسم الألعاب الممتعة</p>
+
+<a href="games.html">
+<button>دخول</button>
+</a>
+
+</div>
+
+<!-- الذكاء -->
+
+<div class="card">
+
+<h2>🤖 الذكاء الاصطناعي</h2>
+
+<p>أفضل أدوات الذكاء الاصطناعي</p>
+
+<a href="ai.html">
+<button>دخول</button>
+</a>
+
+</div>
+
+<!-- الفيديوهات -->
+
+<div class="card">
+
+<h2>🎥 الفيديوهات</h2>
+
+<p>مشاهدة فيديوهات يوتيوب</p>
+
+<a href="videos.html">
+<button>دخول</button>
+</a>
+
+</div>
+
+<!-- VIP -->
+
+<div class="card vip">
+
+<h2>👑 VIP</h2>
+
+<p>مهام أكثر وربح أسرع</p>
+
+<button>
+شراء VIP
+</button>
+
+</div>
+
+<!-- إعلان ثاني -->
+
+<div class="ads">
+
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-4256140548103424"
+data-ad-slot="6882911617"
+data-ad-format="auto"
+data-full-width-responsive="true"></ins>
+
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+<!-- إعلان ثالث -->
+
+<div class="ads">
+
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-4256140548103424"
+data-ad-slot="6882911617"
 data-ad-format="auto"
 data-full-width-responsive="true"></ins>
 
