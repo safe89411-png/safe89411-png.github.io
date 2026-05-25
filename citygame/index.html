@@ -1,459 +1,91 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Ads -->
 
-<title>مدينة MG 3D</title>
+<script async
+src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4256140548103424"
+crossorigin="anonymous">
+</script>
 
-<script src="https://cdn.babylonjs.com/babylon.js"></script>
+<!-- INTERSTITIAL AD -->
 
-<style>
-
-html,body{
+<div id="interstitialAd" style="
+display:flex;
+position:fixed;
+top:0;
+left:0;
 width:100%;
 height:100%;
-margin:0;
-overflow:hidden;
-font-family:Arial;
-}
+background:rgba(0,0,0,0.95);
+z-index:99999;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+">
 
-#renderCanvas{
-width:100%;
-height:100%;
-touch-action:none;
-display:block;
-}
-
-#ui{
+<button onclick="closeInterstitial()" style="
 position:absolute;
-top:10px;
-left:10px;
-z-index:100;
-background:rgba(0,0,0,0.7);
-padding:15px;
-border-radius:20px;
+top:20px;
+right:20px;
+background:red;
 color:white;
-}
-
-button{
-padding:10px 15px;
-margin:5px;
 border:none;
-border-radius:10px;
-background:#00cc66;
-color:white;
-font-size:18px;
-}
-
-button:hover{
-background:#00994d;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div id="ui">
-
-<h2>🏗 بناء المدينة</h2>
-
-<button onclick="setBuild('house')">
-🏠 منزل
+padding:10px 20px;
+font-size:22px;
+border-radius:15px;
+z-index:100000;
+">
+X
 </button>
 
-<button onclick="setBuild('tower')">
-🏢 برج
-</button>
+<div style="
+width:90%;
+max-width:400px;
+background:white;
+padding:10px;
+border-radius:20px;
+">
 
-<button onclick="setBuild('tree')">
-🌳 شجرة
-</button>
-
-<button onclick="setBuild('road')">
-🛣 طريق
-</button>
-
-<br><br>
-
-💰 الذهب:
-<span id="gold">5000</span>
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-4256140548103424"
+data-ad-slot="6882911617"
+data-ad-format="auto"
+data-full-width-responsive="true">
+</ins>
 
 </div>
 
-<canvas id="renderCanvas"></canvas>
+</div>
 
 <script>
 
-let buildType = "house";
-let gold = 5000;
+(adsbygoogle = window.adsbygoogle || []).push({});
 
-const canvas =
-document.getElementById("renderCanvas");
+function closeInterstitial(){
 
-const engine =
-new BABYLON.Engine(canvas,true);
-
-const scene =
-new BABYLON.Scene(engine);
-
-scene.clearColor =
-new BABYLON.Color3(0.5,0.8,1);
-
-const camera =
-new BABYLON.ArcRotateCamera(
-"camera",
-Math.PI/2,
-1.2,
-200,
-new BABYLON.Vector3(0,0,0),
-scene
-);
-
-camera.attachControl(canvas,true);
-
-const light =
-new BABYLON.HemisphericLight(
-"light",
-new BABYLON.Vector3(0,1,0),
-scene
-);
-
-const ground =
-BABYLON.MeshBuilder.CreateGround(
-"ground",
-{
-width:500,
-height:500
-},
-scene
-);
-
-const groundMat =
-new BABYLON.StandardMaterial(
-"groundMat",
-scene
-);
-
-groundMat.diffuseColor =
-new BABYLON.Color3(0.3,0.7,0.3);
-
-ground.material = groundMat;
-
-function setBuild(type){
-
-buildType = type;
+document.getElementById(
+"interstitialAd"
+).style.display="none";
 
 }
 
-function updateGold(){
+function showInterstitial(){
 
-document.getElementById("gold")
-.innerText = gold;
-
-localStorage.setItem(
-"gold",
-gold
-);
+document.getElementById(
+"interstitialAd"
+).style.display="flex";
 
 }
 
-if(localStorage.getItem("gold")){
+window.onload = function(){
 
-gold =
-parseInt(
-localStorage.getItem("gold")
-);
+showInterstitial();
 
-updateGold();
+};
 
-}
+setInterval(function(){
 
-canvas.addEventListener(
-"click",
-function(){
+showInterstitial();
 
-let pick =
-scene.pick(
-scene.pointerX,
-scene.pointerY
-);
-
-if(pick.hit){
-
-let pos = pick.pickedPoint;
-
-let x =
-Math.round(pos.x/10)*10;
-
-let z =
-Math.round(pos.z/10)*10;
-
-if(buildType=="house"){
-
-if(gold<100)return;
-
-gold-=100;
-
-let house =
-BABYLON.MeshBuilder.CreateBox(
-"house",
-{
-width:10,
-depth:10,
-height:10
-},
-scene
-);
-
-house.position =
-new BABYLON.Vector3(
-x,
-5,
-z
-);
-
-let mat =
-new BABYLON.StandardMaterial(
-"mat",
-scene
-);
-
-mat.diffuseColor =
-new BABYLON.Color3(
-0.8,
-0.5,
-0.3
-);
-
-house.material = mat;
-
-}
-
-if(buildType=="tower"){
-
-if(gold<300)return;
-
-gold-=300;
-
-let tower =
-BABYLON.MeshBuilder.CreateBox(
-"tower",
-{
-width:12,
-depth:12,
-height:35
-},
-scene
-);
-
-tower.position =
-new BABYLON.Vector3(
-x,
-17,
-z
-);
-
-let mat =
-new BABYLON.StandardMaterial(
-"mat",
-scene
-);
-
-mat.diffuseColor =
-new BABYLON.Color3(
-0.5,
-0.5,
-1
-);
-
-tower.material = mat;
-
-}
-
-if(buildType=="tree"){
-
-if(gold<20)return;
-
-gold-=20;
-
-let trunk =
-BABYLON.MeshBuilder.CreateCylinder(
-"trunk",
-{
-diameter:1,
-height:5
-},
-scene
-);
-
-trunk.position =
-new BABYLON.Vector3(
-x,
-2,
-z
-);
-
-let top =
-BABYLON.MeshBuilder.CreateSphere(
-"top",
-{
-diameter:5
-},
-scene
-);
-
-top.position =
-new BABYLON.Vector3(
-x,
-6,
-z
-);
-
-let topMat =
-new BABYLON.StandardMaterial(
-"topMat",
-scene
-);
-
-topMat.diffuseColor =
-new BABYLON.Color3(
-0,
-0.8,
-0
-);
-
-top.material = topMat;
-
-}
-
-if(buildType=="road"){
-
-if(gold<10)return;
-
-gold-=10;
-
-let road =
-BABYLON.MeshBuilder.CreateGround(
-"road",
-{
-width:10,
-height:10
-},
-scene
-);
-
-road.position =
-new BABYLON.Vector3(
-x,
-0.02,
-z
-);
-
-let roadMat =
-new BABYLON.StandardMaterial(
-"roadMat",
-scene
-);
-
-roadMat.diffuseColor =
-new BABYLON.Color3(
-0.2,
-0.2,
-0.2
-);
-
-road.material = roadMat;
-
-}
-
-updateGold();
-
-}
-
-});
-
-let cars = [];
-
-function createCar(){
-
-let car =
-BABYLON.MeshBuilder.CreateBox(
-"car",
-{
-width:5,
-height:2,
-depth:3
-},
-scene
-);
-
-car.position.y = 1;
-
-car.position.x =
-Math.random()*300-150;
-
-car.position.z =
-Math.random()*300-150;
-
-let mat =
-new BABYLON.StandardMaterial(
-"mat",
-scene
-);
-
-mat.diffuseColor =
-new BABYLON.Color3(
-Math.random(),
-Math.random(),
-Math.random()
-);
-
-car.material = mat;
-
-cars.push(car);
-
-}
-
-for(let i=0;i<15;i++){
-
-createCar();
-
-}
-
-scene.registerBeforeRender(function(){
-
-cars.forEach(car=>{
-
-car.position.x += 0.3;
-
-if(car.position.x>250){
-
-car.position.x=-250;
-
-}
-
-});
-
-});
-
-engine.runRenderLoop(function(){
-
-scene.render();
-
-});
-
-window.addEventListener(
-"resize",
-function(){
-
-engine.resize();
-
-});
+},60000);
 
 </script>
-
-</body>
-</html>
